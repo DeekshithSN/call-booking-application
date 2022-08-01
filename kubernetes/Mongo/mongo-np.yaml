@@ -1,0 +1,18 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: admin-backend
+spec:
+  policyTypes:
+  - Ingress
+  podSelector:
+    matchLabels:
+      app: mongo
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: admin-backend
+    - podSelector:
+        matchLabels:
+          app: user-backend

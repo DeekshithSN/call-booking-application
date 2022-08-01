@@ -1,0 +1,12 @@
+
+
+mongo admin -u <user-name> -p <password>
+
+show dbs
+use <database-name>
+show collections
+db.<collection-name.find()
+
+through command line client 
+----------------------------
+mongo --host mongodb0.example.com -u <user-name> -p <password>

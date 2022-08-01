@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: user-backend
+  name: user-backend-svc
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: http
+    nodePort: 32000
+  selector:
+    app: user-backend
+  type: NodePort

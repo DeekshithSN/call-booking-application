@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: admin-frontend
+  name: admin-frontend-svc
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: http
+    nodePort: 32004
+  selector:
+    app: admin-frontend
+  type: NodePort

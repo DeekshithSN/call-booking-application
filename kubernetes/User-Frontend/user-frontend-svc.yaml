@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: user-frontend
+  name: user-frontend-svc
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: http
+    nodePort: 32001
+  selector:
+    app: user-frontend
+  type: NodePort

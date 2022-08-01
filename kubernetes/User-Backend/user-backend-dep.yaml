@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user-backend
+  name: user-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-backend
+  template:
+    metadata:
+      labels:
+        app: user-backend
+    spec:
+      containers:
+      - image: 34.100.182.114/call-booking-app/user-api:3.0 #deekshithsn/userapi:1.0
+        name: user-backend
+        ports:
+          - name: http
+            containerPort: 1004
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 2000
+        env:
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds-ub
+              key: monogo_connection_string
+        - name: ADMIN_EMAIL
+          value: admin@deekshithsn.live
+        # resources:
+        #   requests:
+        #     memory: "128Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 1004
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          timeoutSeconds: 1  
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 1004
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          timeoutSeconds: 1
+          
