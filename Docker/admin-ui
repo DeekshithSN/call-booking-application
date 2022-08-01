@@ -1,0 +1,12 @@
+FROM node:17.9.0-slim
+WORKDIR /app
+RUN useradd admin-ui \
+    && chown admin-ui /app
+COPY . .
+RUN npm install
+RUN apt-get update -y \
+  && apt-get install libcap2-bin -y \
+  && setcap cap_net_bind_service=+ep `readlink -f \`which node\``
+EXPOSE 3000
+USER admin-ui
+CMD ["npm","start"]
