@@ -1,0 +1,12 @@
+FROM node:17.9.0-slim
+WORKDIR /app 
+RUN useradd admin-api 
+ENV MONGO_URL=""
+COPY . .
+RUN npm install
+EXPOSE 1004
+RUN apt-get update -y \
+  && apt-get install libcap2-bin -y \
+  && setcap cap_net_bind_service=+ep `readlink -f \`which node\``
+USER admin-api
+CMD ["npm","start"]
