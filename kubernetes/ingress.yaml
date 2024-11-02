@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  namespace: user-apps
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  defaultBackend:
+    service:
+      name: user-frontend-svc
+      port:
+        number: 1025
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: user-frontend-svc
+              port:
+                number: 1025
+              # namespace: user-apps
+        # - path: /admin
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: admin-frontend-svc
+        #       port:
+        #         number: 8080
+        #       # namespace: admin-apps

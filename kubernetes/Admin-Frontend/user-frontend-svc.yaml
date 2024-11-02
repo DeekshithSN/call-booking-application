@@ -4,6 +4,7 @@ metadata:
   labels:
     app: admin-frontend
   name: admin-frontend-svc
+  namespace: admin-apps
 spec:
   ports:
   - port: 3000

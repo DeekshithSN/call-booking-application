@@ -4,10 +4,11 @@ metadata:
   labels:
     app: mongo
   name: mongo-svc
+  namespace: mongo-db
 spec:
   ports:
   - port: 27017
     protocol: TCP
     targetPort: 27017
   selector:
-    app: mongo
+    app: mongodb

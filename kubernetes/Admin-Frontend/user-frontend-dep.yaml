@@ -4,6 +4,7 @@ metadata:
   labels:
     app: admin-frontend
   name: admin-frontend
+  namespace: admin-apps
 spec:
   replicas: 1
   selector:
@@ -14,12 +15,14 @@ spec:
       labels:
         app: admin-frontend
     spec:
+      nodeSelector: 
+        module: app
       volumes:
         - name: admin-frontend-volume
           configMap:
             name: admin-frontend
       containers:
-      - image: deekshithsn/adminui:1.0
+      - image: 805417853753.dkr.ecr.us-east-1.amazonaws.com/admin-ui:latest
         name: admin-frontend
         ports:
           - name: http 
@@ -28,31 +31,31 @@ spec:
           runAsNonRoot: true
           runAsUser: 1001
           runAsGroup: 2000            
-        # resources:
-        #   requests:
-        #     memory: "1Gi"
-        #     cpu: "1"
-        #   limits:
-        #     memory: "1Gi"
-        #     cpu: "1"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "2Gi"
+          limits:
+            cpu: "500m"
+            memory: "4Gi"
         livenessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 15
           successThreshold: 1
           failureThreshold: 3
-          timeoutSeconds: 1  
+          timeoutSeconds: 5  
         readinessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 15
           successThreshold: 1
           failureThreshold: 3
-          timeoutSeconds: 1  
+          timeoutSeconds: 5  
         volumeMounts:
           - name: admin-frontend-volume
             mountPath: /app/.env

@@ -4,6 +4,7 @@ metadata:
   labels:
     app: user-frontend
   name: user-frontend-svc
+  namespace: user-apps
 spec:
   ports:
   - port: 3000
@@ -12,4 +13,4 @@ spec:
     nodePort: 32001
   selector:
     app: user-frontend
-  type: NodePort
+  type: LoadBalancer

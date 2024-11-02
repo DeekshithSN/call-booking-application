@@ -4,9 +4,10 @@ metadata:
   labels:
     app: user-backend
   name: user-backend-svc
+  namespace: user-apps
 spec:
   ports:
-  - port: 5000
+  - port: 1025
     protocol: TCP
     targetPort: http
     nodePort: 32000

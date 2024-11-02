@@ -4,6 +4,7 @@ metadata:
   labels:
     app: user-backend
   name: user-backend
+  namespace: user-apps
 spec:
   replicas: 1
   selector:
@@ -14,35 +15,36 @@ spec:
       labels:
         app: user-backend
     spec:
+      nodeSelector: 
+        module: app
       containers:
-      - image: 34.100.182.114/call-booking-app/user-api:3.0 #deekshithsn/userapi:1.0
+      - image: 805417853753.dkr.ecr.us-east-1.amazonaws.com/user-api:latest
         name: user-backend
         ports:
           - name: http
-            containerPort: 1004
+            containerPort: 1025
         securityContext:
           runAsNonRoot: true
           runAsUser: 1001
-          runAsGroup: 2000
+          runAsGroup: 1001
         env:
         - name: MONGO_URL
-          valueFrom:
-            secretKeyRef:
-              name: mongo-creds-ub
-              key: monogo_connection_string
+          value: "mongodb://admin:admin@mongo-svc.mongo-db.svc.cluster.local/?retryWrites=true&w=majority"
         - name: ADMIN_EMAIL
           value: admin@deekshithsn.live
-        # resources:
-        #   requests:
-        #     memory: "128Mi"
-        #     cpu: "250m"
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "250m"
+        - name: PORT
+          value: "1025"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
         livenessProbe:
           httpGet:
             path: /api/health
-            port: 1004
+            port: 1025
           initialDelaySeconds: 30
           periodSeconds: 5
           successThreshold: 1
@@ -51,7 +53,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /api/health
-            port: 1004
+            port: 1025
           initialDelaySeconds: 30
           periodSeconds: 5
           successThreshold: 1

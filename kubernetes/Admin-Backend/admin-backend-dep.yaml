@@ -4,6 +4,7 @@ metadata:
   labels:
     app: admin-backend
   name: admin-backend
+  namespace: admin-apps
 spec:
   replicas: 1
   selector:
@@ -14,32 +15,36 @@ spec:
       labels:
         app: admin-backend
     spec:
+      nodeSelector: 
+        module: app
       containers:
-      - image: 34.100.182.114/call-booking-app/admin-api:3.0
+      - image: 805417853753.dkr.ecr.us-east-1.amazonaws.com/admin-api:latest
         name: admin-backend
         ports:
         - name: http 
-          containerPort: 1004
+          containerPort: 1025
         securityContext:
           runAsNonRoot: true
           runAsUser: 1001
           runAsGroup: 2000
         env:
         - name: MONGO_URL
-          value: "mongodb://adminuser:password123@mongo-nodeport-svc/?retryWrites=true&w=majority"
+          value: "mongodb://admin:admin@mongo-svc.mongo-db.svc.cluster.local/?retryWrites=true&w=majority"
         - name: JWT_SECRET
           value: "secret"
-        # resources:
-        #   requests:
-        #     memory: "128Mi"
-        #     cpu: "250m"
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "250m"
+        - name: PORT
+          value: "1025"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "2Gi"
+          limits:
+            cpu: "500m"
+            memory: "4Gi"
         livenessProbe:
           httpGet:
             path: /api/health
-            port: 1004
+            port: 1025
           initialDelaySeconds: 30
           periodSeconds: 5
           successThreshold: 1
@@ -48,10 +53,11 @@ spec:
         readinessProbe:
           httpGet:
             path: /api/health
-            port: 1004
+            port: 1025
           initialDelaySeconds: 30
           periodSeconds: 5
           successThreshold: 1
           failureThreshold: 3
           timeoutSeconds: 1
+
           

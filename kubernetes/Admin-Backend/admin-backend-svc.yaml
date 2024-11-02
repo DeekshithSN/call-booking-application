@@ -4,9 +4,10 @@ metadata:
   labels:
     app: admin-backend
   name: admin-backend-svc
+  namespace: admin-apps
 spec:
   ports:
-  - port: 5000
+  - port: 1025
     protocol: TCP
     targetPort: http
     nodePort: 32003

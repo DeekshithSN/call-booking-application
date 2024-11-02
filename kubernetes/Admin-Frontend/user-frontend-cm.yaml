@@ -2,8 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: admin-frontend
+  namespace: admin-apps
   labels:
     app: admin-frontend
 data:
   .env: |
-    REACT_APP_API_URL=http://34.125.180.60:32003
+    REACT_APP_API_URL=http://54.227.93.77:32003

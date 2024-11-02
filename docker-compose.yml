@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+  mongo-db:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret 
+      - MONGO_INITDB_DATABASE=my_db 
+
+  user-api:
+    build: ./user-api
+    ports:
+      - 1004:1004
+    environment:
+      - MONGO_URL="mongodb://mongoadmin:secret@13.233.138.244:27017/?retryWrites=true&w=majority" 
+      - ADMIN_EMAIL="admin@deekshithsn.co.in"
+    depends_on:
+      - mongo-db
+
+  admin-api:
+    build: ./admin-api
+    ports:
+      - 1005:1004
+    environment:
+      - MONGO_URL="mongodb://mongoadmin:secret@13.233.138.244:27017/?retryWrites=true&w=majority"
+    depends_on:
+      - mongo-db
+  
+  user-ui:
+    image: ./user-ui
+    ports:
+      - 1002:1002
+    depends_on:
+      - zuul
+
+  offers:
+    image: deekshithsn/offer
+    ports:
+      - 1001:1001
+    depends_on:
+      - zuul
+
+  cart:
+    image: deekshithsn/cart
+    ports:
+      - 1004:1004
+    depends_on:
+      - zuul
+
+  wishlist:
+    image: deekshithsn/wishlist
+#    volumes:
+#      - ./wishlist-microservice-python:.
+    ports:
+      - 1003:5000
+    depends_on:
+      - zuul

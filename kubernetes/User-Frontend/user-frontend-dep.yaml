@@ -4,6 +4,7 @@ metadata:
   labels:
     app: user-frontend
   name: user-frontend
+  namespace: user-apps
 spec:
   replicas: 1
   selector:
@@ -19,7 +20,7 @@ spec:
           configMap:
             name: user-frontend
       containers:
-      - image: 34.100.182.114/call-booking-app/user-ui:3.0 #deekshithsn/user-ui-new:latest #deekshithsn/userui:1.0
+      - image: 805417853753.dkr.ecr.us-east-1.amazonaws.com/user-ui:latest #deekshithsn/user-ui-new:latest #deekshithsn/userui:1.0
         name: user-frontend
         ports:
           - name: http 
@@ -27,32 +28,40 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 1001
-          runAsGroup: 2000            
+          runAsGroup: 1001  
+
         # resources:
         #   requests:
-        #     memory: "1Gi"
-        #     cpu: "1"
+        #     memory: "128Mi"
+        #     cpu: "250m"
         #   limits:
-        #     memory: "1Gi"
-        #     cpu: "1"
+        #     memory: "128Mi"
+        #     cpu: "250m"          
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
         livenessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 15
           successThreshold: 1
           failureThreshold: 3
-          timeoutSeconds: 1  
+          timeoutSeconds: 5  
         readinessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 15
           successThreshold: 1
           failureThreshold: 3
-          timeoutSeconds: 1        
+          timeoutSeconds: 5        
         volumeMounts:
           - name: user-frontend-volume
             mountPath: /app/.env
