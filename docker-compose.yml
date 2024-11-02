@@ -36,25 +36,4 @@ services:
     depends_on:
       - zuul
 
-  offers:
-    image: deekshithsn/offer
-    ports:
-      - 1001:1001
-    depends_on:
-      - zuul
-
-  cart:
-    image: deekshithsn/cart
-    ports:
-      - 1004:1004
-    depends_on:
-      - zuul
-
-  wishlist:
-    image: deekshithsn/wishlist
-#    volumes:
-#      - ./wishlist-microservice-python:.
-    ports:
-      - 1003:5000
-    depends_on:
-      - zuul
+  
