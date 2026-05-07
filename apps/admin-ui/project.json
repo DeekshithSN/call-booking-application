@@ -1,0 +1,58 @@
+{
+  "name": "admin-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/admin-ui/src",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm run lint",
+        "cwd": "apps/admin-ui"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/admin-ui"
+      ],
+      "options": {
+        "command": "pnpm test -- --watch=false --coverage --passWithNoTests",
+        "cwd": "apps/admin-ui"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/admin-ui"
+      ],
+      "options": {
+        "command": "pnpm run build",
+        "cwd": "apps/admin-ui",
+        "env": {
+          "CI": "false"
+        }
+      }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "docker build -t alqoseemi/admin-ui:${TAG:-latest} -f Dockerfile .",
+        "cwd": "apps/admin-ui"
+      }
+    },
+    "docker-push": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "docker-build"
+      ],
+      "options": {
+        "command": "docker push alqoseemi/admin-ui:${TAG:-latest}"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "workspace",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/workspace/src",
+    "projectType": "library",
+    "targets": {
+        "build": {
+            "outputs": ["{workspaceRoot}/dist/packages/workspace/README.md"],
+            "command": "node ./scripts/copy-readme.js workspace",
+            "inputs": ["copyReadme"]
+        },
+        "add-extra-dependencies": {
+            "command": "node ./scripts/add-dependency-to-build.js workspace nx"
+        }
+    }
+}

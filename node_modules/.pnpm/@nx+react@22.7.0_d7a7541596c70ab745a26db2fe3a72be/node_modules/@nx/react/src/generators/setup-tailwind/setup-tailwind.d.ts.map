@@ -1,0 +1,1 @@
+{"version":3,"file":"setup-tailwind.d.ts","sourceRoot":"","sources":["../../../../../../packages/react/src/generators/setup-tailwind/setup-tailwind.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,IAAI,EAAE,MAAM,YAAY,CAAC;AAgB1D,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,UAAU,CAAC;AAKrD,wBAAsB,sBAAsB,CAC1C,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,oBAAoB,8BA8C9B;AAED,eAAe,sBAAsB,CAAC"}

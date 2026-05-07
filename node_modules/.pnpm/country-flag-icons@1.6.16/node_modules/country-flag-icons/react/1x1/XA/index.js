@@ -1,0 +1,1 @@
+export { XA as default } from '../index.js'

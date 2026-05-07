@@ -1,0 +1,55 @@
+{
+  "name": "user-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/user-api/src",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm run lint",
+        "cwd": "apps/user-api"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/user-api"
+      ],
+      "options": {
+        "command": "pnpm test -- --coverage",
+        "cwd": "apps/user-api"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/user-api"
+      ],
+      "options": {
+        "command": "pnpm run build",
+        "cwd": "apps/user-api"
+      }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "docker build -t alqoseemi/user-api:${TAG:-latest} -f Dockerfile .",
+        "cwd": "apps/user-api"
+      }
+    },
+    "docker-push": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "docker-build"
+      ],
+      "options": {
+        "command": "docker push alqoseemi/user-api:${TAG:-latest}"
+      }
+    }
+  }
+}

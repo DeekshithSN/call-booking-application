@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-output.d.ts","sourceRoot":"","sources":["../../../../../packages/rollup/src/plugins/delete-output.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,QAAQ,CAAC;AAGrC,MAAM,WAAW,mBAAmB;IAClC,IAAI,EAAE,MAAM,EAAE,CAAC;CAChB;AAED,wBAAgB,YAAY,CAAC,OAAO,EAAE,mBAAmB,GAAG,MAAM,CAMjE"}

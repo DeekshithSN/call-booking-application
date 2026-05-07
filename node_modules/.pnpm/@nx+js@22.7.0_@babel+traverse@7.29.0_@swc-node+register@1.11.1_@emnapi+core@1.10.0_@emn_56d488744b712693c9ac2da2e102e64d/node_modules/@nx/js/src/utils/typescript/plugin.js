@@ -1,0 +1,111 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ensureProjectIsIncludedInPluginRegistrations = ensureProjectIsIncludedInPluginRegistrations;
+const devkit_internals_1 = require("nx/src/devkit-internals");
+function ensureProjectIsIncludedInPluginRegistrations(nxJson, projectRoot, buildTargetName) {
+    nxJson.plugins ??= [];
+    let isIncluded = false;
+    let index = 0;
+    for (const registration of nxJson.plugins) {
+        if (!isTypeScriptPluginRegistration(registration)) {
+            index++;
+            continue;
+        }
+        if (typeof registration === 'string') {
+            if (buildTargetName) {
+                // if it's a string all projects are included but there are no user-specified options
+                // and the build task is not inferred by default, so we need to exclude it
+                nxJson.plugins[index] = {
+                    plugin: '@nx/js/typescript',
+                    exclude: [`${projectRoot}/*`],
+                };
+            }
+            else {
+                isIncluded = true;
+            }
+        }
+        else {
+            // check if the project would be included by the plugin registration
+            const matchingConfigFiles = (0, devkit_internals_1.findMatchingConfigFiles)([`${projectRoot}/tsconfig.json`], '**/tsconfig.json', registration.include, registration.exclude);
+            if (matchingConfigFiles.length) {
+                // it's included by the plugin registration, check if the user-specified options would result
+                // in the appropriate build task being inferred, if not, we need to exclude it
+                if (registration.options?.typecheck !== false &&
+                    matchesBuildTargetDefinition(registration.options?.build, buildTargetName)) {
+                    // it has the desired options, do nothing, but continue processing
+                    // other registrations to exclude as needed
+                    isIncluded = true;
+                }
+                else {
+                    // it would not have the typecheck or build task inferred, so we need to exclude it
+                    registration.exclude ??= [];
+                    registration.exclude.push(`${projectRoot}/*`);
+                }
+            }
+            else if (!isIncluded &&
+                registration.options?.typecheck !== false &&
+                matchesBuildTargetDefinition(registration.options?.build, buildTargetName)) {
+                if (!registration.exclude?.length) {
+                    // negative pattern are not supported by the `exclude` option so we
+                    // can't update it to not exclude the project, so we only update the
+                    // plugin registration if there's no `exclude` option, in which case
+                    // the plugin registration should have an `include` options that doesn't
+                    // include the project
+                    isIncluded = true;
+                    registration.include ??= [];
+                    registration.include.push(`${projectRoot}/*`);
+                }
+                else if (registration.exclude?.includes(`${projectRoot}/*`)) {
+                    isIncluded = true;
+                    registration.exclude = registration.exclude.filter((e) => e !== `${projectRoot}/*`);
+                    if (!registration.exclude.length) {
+                        // if there's no `exclude` option left, we can remove the exclude option
+                        delete registration.exclude;
+                    }
+                }
+            }
+        }
+        index++;
+    }
+    if (!isIncluded) {
+        // the project is not included by any plugin registration with an inferred build task
+        // with the given name, so we create a new plugin registration for it
+        const registration = {
+            plugin: '@nx/js/typescript',
+            include: [`${projectRoot}/*`],
+            options: {
+                typecheck: { targetName: 'typecheck' },
+            },
+        };
+        if (buildTargetName) {
+            registration.options.build = {
+                targetName: buildTargetName,
+                configName: 'tsconfig.lib.json',
+            };
+        }
+        nxJson.plugins.push(registration);
+    }
+}
+function isTypeScriptPluginRegistration(plugin) {
+    return ((typeof plugin === 'string' && plugin === '@nx/js/typescript') ||
+        (typeof plugin !== 'string' && plugin.plugin === '@nx/js/typescript'));
+}
+function matchesBuildTargetDefinition(buildOptions, buildTargetName) {
+    if (buildOptions === undefined || buildOptions === false) {
+        return !buildTargetName;
+    }
+    if (!buildTargetName) {
+        // we don't want a build target to be inferred, in which case we'll generate
+        // the package.json with the entry points pointing to source, so, as long as
+        // we don't skip the build check, this registration is valid even if it has
+        // build options defined
+        return typeof buildOptions === 'object'
+            ? !buildOptions.skipBuildCheck
+            : true;
+    }
+    if (buildOptions === true && buildTargetName === 'build') {
+        return true;
+    }
+    return (typeof buildOptions === 'object' &&
+        buildOptions.targetName === buildTargetName);
+}

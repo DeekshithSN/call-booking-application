@@ -1,0 +1,10 @@
+//#region src/attachShareScopeMap.ts
+function attachShareScopeMap(webpackRequire) {
+	if (!webpackRequire.S || webpackRequire.federation.hasAttachShareScopeMap || !webpackRequire.federation.instance || !webpackRequire.federation.instance.shareScopeMap) return;
+	webpackRequire.S = webpackRequire.federation.instance.shareScopeMap;
+	webpackRequire.federation.hasAttachShareScopeMap = true;
+}
+
+//#endregion
+export { attachShareScopeMap };
+//# sourceMappingURL=attachShareScopeMap.js.map

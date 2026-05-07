@@ -1,0 +1,1 @@
+{"version":3,"file":"dependencies.d.ts","sourceRoot":"","sources":["../../../../../packages/react/src/utils/dependencies.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,mBAAmB;IAClC,YAAY,EAAE,iBAAiB,CAAC;IAChC,eAAe,EAAE,iBAAiB,CAAC;CACpC;AAED,MAAM,WAAW,iBAAiB;IAChC,CAAC,MAAM,EAAE,MAAM,GAAG,MAAM,CAAC;CAC1B"}

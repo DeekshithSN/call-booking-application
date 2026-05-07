@@ -1,0 +1,1 @@
+{"version":3,"file":"rules-requiring-type-checking.d.ts","sourceRoot":"","sources":["../../../../../packages/eslint/src/utils/rules-requiring-type-checking.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,QAAQ,CAAC;AA0BrC,wBAAgB,6BAA6B,CAC3C,YAAY,EAAE,MAAM,CAAC,YAAY,GAChC,OAAO,CAcT;AAED,wBAAgB,uCAAuC,CACrD,IAAI,EAAE,MAAM,CAAC,YAAY,GACxB,MAAM,CAAC,YAAY,CAOrB"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"get-dynamic-manifest-file.d.ts","sourceRoot":"","sources":["../../../../../../packages/module-federation/src/plugins/utils/get-dynamic-manifest-file.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,oBAAoB,EAAE,MAAM,YAAY,CAAC;AAKvD,wBAAgB,wBAAwB,CACtC,OAAO,EAAE,oBAAoB,EAC7B,aAAa,EAAE,MAAM,GACpB,MAAM,GAAG,SAAS,CAepB"}

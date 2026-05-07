@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":[],"sources":["../../src/type/index.ts"],"sourcesContent":["export * from './config';\nexport * from './plugin';\nexport * from './preload';\n"],"mappings":""}

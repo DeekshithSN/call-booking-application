@@ -1,0 +1,64 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sassVersion = exports.lessVersion = exports.moduleFederationEnhancedVersion = exports.moduleFederationNodeVersion = exports.typesCorsVersion = exports.corsVersion = exports.isbotVersion = exports.typesExpressVersion = exports.expressVersion = exports.autoprefixerVersion = exports.tailwindcssVersion = exports.postcssVersion = exports.tsLibVersion = exports.babelPluginStyledComponentsVersion = exports.eslintPluginReactHooksVersion = exports.eslintPluginReactVersion = exports.eslintPluginJsxA11yVersion = exports.eslintPluginImportVersion = exports.reactReduxVersion = exports.reduxjsToolkitVersion = exports.testingLibraryDomVersion = exports.testingLibraryReactVersion = exports.reactRouterIsBotVersion = exports.reactRouterVersion = exports.reactRouterDomVersion = exports.styledJsxVersion = exports.emotionBabelPlugin = exports.emotionReactVersion = exports.emotionStyledVersion = exports.typesStyledComponentsVersion = exports.styledComponentsVersion = exports.babelCoreVersion = exports.babelPresetReactVersion = exports.typesNodeVersion = exports.reactViteVersion = exports.typesReactIsVersion = exports.typesReactIsV18Version = exports.typesReactDomVersion = exports.typesReactDomV18Version = exports.typesReactVersion = exports.typesReactV18Version = exports.babelLoaderVersion = exports.swcLoaderVersion = exports.reactIsV18Version = exports.reactIsVersion = exports.reactDomV18Version = exports.reactDomVersion = exports.reactV18Version = exports.reactVersion = exports.nxVersion = void 0;
+exports.swcPluginStyledComponentsVersion = exports.swcPluginEmotionVersion = exports.swcPluginStyledJsxVersion = exports.svgrRollupVersion = exports.rollupPluginUrlVersion = void 0;
+exports.nxVersion = require('../../package.json').version;
+exports.reactVersion = '^19.0.0';
+exports.reactV18Version = '18.3.1';
+exports.reactDomVersion = '^19.0.0';
+exports.reactDomV18Version = '18.3.1';
+exports.reactIsVersion = '^19.0.0';
+exports.reactIsV18Version = '18.3.1';
+exports.swcLoaderVersion = '0.1.15';
+exports.babelLoaderVersion = '^9.1.2';
+exports.typesReactV18Version = '18.3.1';
+exports.typesReactVersion = '^19.0.0';
+exports.typesReactDomV18Version = '18.3.0';
+exports.typesReactDomVersion = '^19.0.0';
+exports.typesReactIsV18Version = '18.3.0';
+exports.typesReactIsVersion = '^19.0.0';
+exports.reactViteVersion = '^4.2.0';
+// Needed for React-Router
+exports.typesNodeVersion = '^20.0.0';
+exports.babelPresetReactVersion = '^7.14.5';
+exports.babelCoreVersion = '^7.14.5';
+exports.styledComponentsVersion = '5.3.6';
+exports.typesStyledComponentsVersion = '5.1.26';
+exports.emotionStyledVersion = '11.14.1';
+exports.emotionReactVersion = '11.14.0';
+exports.emotionBabelPlugin = '11.13.5';
+// WARNING: This needs to be in sync with Next.js' dependency or else there might be issues.
+exports.styledJsxVersion = '5.1.2';
+exports.reactRouterDomVersion = '6.30.3';
+exports.reactRouterVersion = '^7.14.2';
+exports.reactRouterIsBotVersion = '^4.4.0';
+exports.testingLibraryReactVersion = '16.3.0';
+exports.testingLibraryDomVersion = '10.4.0';
+exports.reduxjsToolkitVersion = '1.9.3';
+exports.reactReduxVersion = '8.0.5';
+exports.eslintPluginImportVersion = '2.31.0';
+exports.eslintPluginJsxA11yVersion = '6.10.1';
+exports.eslintPluginReactVersion = '7.35.0';
+exports.eslintPluginReactHooksVersion = '5.0.0';
+exports.babelPluginStyledComponentsVersion = '1.10.7';
+exports.tsLibVersion = '^2.3.0';
+exports.postcssVersion = '8.4.38';
+exports.tailwindcssVersion = '3.4.3';
+exports.autoprefixerVersion = '10.4.13';
+// SSR and Module Federation
+exports.expressVersion = '^4.21.2';
+exports.typesExpressVersion = '^4.17.21';
+exports.isbotVersion = '^3.6.5';
+exports.corsVersion = '~2.8.5';
+exports.typesCorsVersion = '~2.8.12';
+exports.moduleFederationNodeVersion = '^2.7.21';
+exports.moduleFederationEnhancedVersion = '^2.1.0';
+// style preprocessors
+exports.lessVersion = '3.12.2';
+exports.sassVersion = '^1.55.0';
+// rollup plugins (if needed)
+exports.rollupPluginUrlVersion = '^8.0.2';
+exports.svgrRollupVersion = '^8.1.0';
+exports.swcPluginStyledJsxVersion = '^1.5.67';
+exports.swcPluginEmotionVersion = '^2.5.67';
+exports.swcPluginStyledComponentsVersion = '^1.5.67';

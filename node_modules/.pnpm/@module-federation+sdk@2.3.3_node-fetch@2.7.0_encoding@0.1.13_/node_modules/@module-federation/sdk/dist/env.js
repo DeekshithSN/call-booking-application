@@ -1,0 +1,30 @@
+import { BROWSER_LOG_KEY } from "./constant.js";
+
+//#region src/env.ts
+const isBrowserEnvValue = typeof ENV_TARGET !== "undefined" ? ENV_TARGET === "web" : typeof window !== "undefined" && typeof window.document !== "undefined";
+function isBrowserEnv() {
+	return isBrowserEnvValue;
+}
+function isReactNativeEnv() {
+	return typeof navigator !== "undefined" && navigator?.product === "ReactNative";
+}
+function isBrowserDebug() {
+	try {
+		if (isBrowserEnv() && window.localStorage) return Boolean(localStorage.getItem(BROWSER_LOG_KEY));
+	} catch (error) {
+		return false;
+	}
+	return false;
+}
+function isDebugMode() {
+	if (typeof process !== "undefined" && process.env && process.env["FEDERATION_DEBUG"]) return Boolean(process.env["FEDERATION_DEBUG"]);
+	if (typeof FEDERATION_DEBUG !== "undefined" && Boolean(FEDERATION_DEBUG)) return true;
+	return isBrowserDebug();
+}
+const getProcessEnv = function() {
+	return typeof process !== "undefined" && process.env ? process.env : {};
+};
+
+//#endregion
+export { getProcessEnv, isBrowserEnv, isBrowserEnvValue, isDebugMode, isReactNativeEnv };
+//# sourceMappingURL=env.js.map

@@ -1,0 +1,55 @@
+{
+  "name": "admin-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/admin-api/src",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm run lint",
+        "cwd": "apps/admin-api"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/admin-api"
+      ],
+      "options": {
+        "command": "pnpm test -- --coverage",
+        "cwd": "apps/admin-api"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/admin-api"
+      ],
+      "options": {
+        "command": "pnpm run build",
+        "cwd": "apps/admin-api"
+      }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "docker build -t alqoseemi/admin-api:${TAG} -f Dockerfile .",
+        "cwd": "apps/admin-api"
+      }
+    },
+    "docker-push": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "docker-build"
+      ],
+      "options": {
+        "command": "docker push alqoseemi/admin-api:${TAG}"
+      }
+    }
+  }
+}

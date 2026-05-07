@@ -1,0 +1,6 @@
+import { Tree } from '@nx/devkit';
+export declare const eslintFlatConfigFilenames: string[];
+export declare const baseEslintConfigFilenames: string[];
+export declare function getRootESLintFlatConfigFilename(tree: Tree): string;
+export declare function useFlatConfig(tree?: Tree): boolean;
+//# sourceMappingURL=flat-config.d.ts.map

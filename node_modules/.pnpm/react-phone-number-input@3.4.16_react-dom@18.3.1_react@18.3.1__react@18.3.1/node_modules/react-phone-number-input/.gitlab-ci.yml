@@ -1,0 +1,19 @@
+image: node:18
+
+pages:
+  script:
+  - npm install
+  - mkdir ./react-styleguidist/project
+  - cp .babelrc ./react-styleguidist/project/
+  - cp --recursive ./source ./react-styleguidist/project/
+  - npm run generate-docs:core
+  - npm run build
+  - mv ./bundle ./public
+  - cp --recursive ./website/* ./public/
+
+  artifacts:
+    paths:
+    - public
+
+  only:
+  - master

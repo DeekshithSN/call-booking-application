@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addRemoteToDynamicHost = addRemoteToDynamicHost;
+function addRemoteToDynamicHost(tree, remoteName, remotePort, pathToMfManifest) {
+    if (tree.exists(pathToMfManifest)) {
+        const current = tree.read(pathToMfManifest, 'utf8');
+        tree.write(pathToMfManifest, JSON.stringify({
+            ...JSON.parse(current),
+            [remoteName]: `http://localhost:${remotePort}`,
+        }));
+    }
+}

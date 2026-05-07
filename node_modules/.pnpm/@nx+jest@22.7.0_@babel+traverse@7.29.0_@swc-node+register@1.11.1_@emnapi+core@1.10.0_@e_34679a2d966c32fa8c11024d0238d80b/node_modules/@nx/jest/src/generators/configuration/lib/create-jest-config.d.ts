@@ -1,0 +1,5 @@
+import { type Tree } from '@nx/devkit';
+import { type JestPresetExtension } from '../../../utils/config/config-file';
+import type { NormalizedJestProjectSchema } from '../schema';
+export declare function createJestConfig(tree: Tree, options: Partial<NormalizedJestProjectSchema>, presetExt: JestPresetExtension): Promise<void>;
+//# sourceMappingURL=create-jest-config.d.ts.map

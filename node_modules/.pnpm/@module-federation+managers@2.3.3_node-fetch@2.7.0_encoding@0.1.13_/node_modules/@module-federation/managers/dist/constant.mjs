@@ -1,0 +1,6 @@
+
+;// CONCATENATED MODULE: ./src/constant.ts
+const LOCAL_BUILD_VERSION = 'local';
+const UNKNOWN_MODULE_NAME = 'UNKNOWN';
+
+export { LOCAL_BUILD_VERSION, UNKNOWN_MODULE_NAME };

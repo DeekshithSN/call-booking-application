@@ -1,0 +1,35 @@
+import type { Meta, StoryObj } from '<%= uiFramework %>';
+import { <%= componentName %>  } from './<%= componentImportFileName %>';
+<%_ if ( interactionTests ) { _%>
+import { expect } from 'storybook/test';
+<%_ } _%>
+
+const meta = {
+  component: <%= componentName %>,
+  title: '<%= componentName %>',
+  <%_ if ( argTypes && argTypes.length > 0 ) { _%> 
+  argTypes: {<% for (let argType of argTypes) { %>
+    <%= argType.name %>: { <%- argType.type %>: "<%- argType.actionText %>" },<% } %>
+  }
+  <%_ } _%> 
+} satisfies Meta<typeof <%= componentName %>>;
+export default meta;
+
+type Story = StoryObj<typeof <%= componentName %>>;
+
+export const Primary = {
+  args: {<% for (let prop of props) { %>
+    <%= prop.name %>: <%- prop.defaultValue %>,<% } %>
+  },
+} satisfies Story;
+<%_ if ( interactionTests ) { _%>
+
+export const Heading = {
+  args: {<% for (let prop of props) { %>
+    <%= prop.name %>: <%- prop.defaultValue %>,<% } %>
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText(/<%=componentName%>/gi)).toBeTruthy();
+  },
+} satisfies Story;
+<% } %>

@@ -1,0 +1,1 @@
+{"version":3,"file":"webpack-fallback.d.ts","sourceRoot":"","sources":["../../../../../packages/react/plugins/component-testing/webpack-fallback.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,aAAa,EAAE,MAAM,SAAS,CAAC;AAIxC,wBAAgB,sBAAsB,CAAC,EACrC,YAAiC,EACjC,QAAkB,GACnB,EAAE;IACD,YAAY,EAAE,MAAM,CAAC;IACrB,QAAQ,EAAE,KAAK,GAAG,OAAO,CAAC;CAC3B,GAAG,aAAa,CAuEhB"}

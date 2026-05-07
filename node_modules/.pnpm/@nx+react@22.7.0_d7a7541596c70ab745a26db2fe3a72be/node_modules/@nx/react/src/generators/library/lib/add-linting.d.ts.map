@@ -1,0 +1,1 @@
+{"version":3,"file":"add-linting.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/library/lib/add-linting.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,MAAM,wBAAwB,CAAC;AAG9C,OAAO,EAEL,iBAAiB,EAElB,MAAM,YAAY,CAAC;AAEpB,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAC;AAW7C,wBAAsB,UAAU,CAAC,IAAI,EAAE,IAAI,EAAE,OAAO,EAAE,gBAAgB,8BA8DrE"}

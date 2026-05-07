@@ -1,0 +1,1 @@
+{"version":3,"file":"identifier.js","sourceRoot":"","sources":["../../../src/matchers/identifier.ts"],"names":[],"mappings":";;;AAGA,gDAAgD;AAEhD,SAAgB,UAAU,CAAC,IAAU,EAAE,QAAoB;IACzD,MAAM,IAAI,GAAG,IAAA,4BAAc,EAAC,IAAI,CAAC,IAAI,CAAC,CAAC;IACvC,OAAO,CAAC,CAAC,IAAI,IAAI,IAAI,CAAC,WAAW,EAAE,KAAK,QAAQ,CAAC,KAAK,CAAC,WAAW,EAAE,CAAC;AACvE,CAAC;AAHD,gCAGC"}

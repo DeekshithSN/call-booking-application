@@ -1,0 +1,1 @@
+{"version":3,"file":"schema.d.ts","sourceRoot":"","sources":["../../../../../../packages/react/src/generators/setup-tailwind/schema.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,oBAAoB;IACnC,OAAO,EAAE,MAAM,CAAC;IAChB,WAAW,CAAC,EAAE,MAAM,CAAC;IACrB,UAAU,CAAC,EAAE,OAAO,CAAC;IACrB,eAAe,CAAC,EAAE,OAAO,CAAC;CAC3B"}

@@ -1,0 +1,151 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.extractRollupConfigFromExecutorOptions = extractRollupConfigFromExecutorOptions;
+const devkit_1 = require("@nx/devkit");
+const normalize_path_options_1 = require("./normalize-path-options");
+const aliases = {
+    entryFile: 'main',
+    exports: 'generateExportsField',
+    f: 'format',
+};
+function extractRollupConfigFromExecutorOptions(tree, options, configurations, projectRoot) {
+    (0, normalize_path_options_1.normalizePathOptions)(projectRoot, options);
+    const hasConfigurations = !!configurations && Object.keys(configurations).length > 0;
+    const oldRollupConfig = Array.isArray(options.rollupConfig)
+        ? options.rollupConfig
+        : options.rollupConfig
+            ? [options.rollupConfig]
+            : [];
+    delete options.rollupConfig;
+    // Resolve conflict with rollup.config.cjs or rollup.config.js if they exist.
+    for (let i = 0; i < oldRollupConfig.length; i++) {
+        const file = oldRollupConfig[i];
+        if (file === './rollup.config.cjs') {
+            tree.rename((0, devkit_1.joinPathFragments)(projectRoot, 'rollup.config.cjs'), (0, devkit_1.joinPathFragments)(projectRoot, `rollup.migrated.config.cjs`));
+            oldRollupConfig.splice(i, 1, './rollup.migrated.config.cjs');
+        }
+        if (file === './rollup.config.js') {
+            tree.rename((0, devkit_1.joinPathFragments)(projectRoot, 'rollup.config.js'), (0, devkit_1.joinPathFragments)(projectRoot, `rollup.migrated.config.js`));
+            oldRollupConfig.splice(i, 1, './rollup.migrated.config.js');
+        }
+    }
+    const defaultOptions = {};
+    for (const [key, value] of Object.entries(options)) {
+        if (key === 'watch')
+            continue;
+        delete options[key];
+        if (aliases[key]) {
+            defaultOptions[aliases[key]] = value;
+        }
+        else {
+            defaultOptions[key] = value;
+        }
+    }
+    let configurationOptions;
+    if (hasConfigurations) {
+        configurationOptions = {};
+        for (const [key, value] of Object.entries(configurations)) {
+            let newConfigFileName;
+            let oldRollupConfigForConfiguration;
+            for (const [optionKey, optionValue] of Object.entries(value)) {
+                if (optionKey === 'watch')
+                    continue;
+                /**
+                 * If a configuration lists rollupConfig as an option
+                 * Collect the options and set up a new file to point to
+                 * Set the `--config` option to the new file
+                 */
+                if (optionKey === 'rollupConfig') {
+                    oldRollupConfigForConfiguration = Array.isArray(optionValue)
+                        ? optionValue
+                        : optionValue
+                            ? [optionValue]
+                            : [];
+                    newConfigFileName = `rollup.${key}.config.js`;
+                    for (let i = 0; i < oldRollupConfigForConfiguration.length; i++) {
+                        const file = oldRollupConfigForConfiguration[i];
+                        if (file === newConfigFileName) {
+                            tree.rename((0, devkit_1.joinPathFragments)(projectRoot, newConfigFileName), (0, devkit_1.joinPathFragments)(projectRoot, `rollup.${key}.migrated.config.js`));
+                            oldRollupConfigForConfiguration.splice(i, 1, `./rollup.${key}.migrated.config.js`);
+                        }
+                    }
+                    delete value[optionKey];
+                    value['config'] = newConfigFileName;
+                    continue;
+                }
+                delete value[optionKey];
+                configurationOptions[key] ??= {};
+                configurationOptions[key][optionKey] = optionValue;
+            }
+            /**
+             * Only if we encountered a rollupConfig in the current configuration
+             * should we write a new config file, containing all the config values
+             */
+            if (newConfigFileName) {
+                tree.write((0, devkit_1.joinPathFragments)(projectRoot, newConfigFileName), createNewRollupConfig(oldRollupConfigForConfiguration, defaultOptions, configurationOptions[key], true));
+            }
+        }
+    }
+    tree.write((0, devkit_1.joinPathFragments)(projectRoot, `rollup.config.cjs`), createNewRollupConfig(oldRollupConfig, defaultOptions, configurationOptions));
+    return defaultOptions;
+}
+function createNewRollupConfig(oldRollupConfig, defaultOptions, configurationOptions, singleConfiguration = false) {
+    if (configurationOptions) {
+        return (0, devkit_1.stripIndents) `
+      const { withNx } = require('@nx/rollup/with-nx');
+      
+      // These options were migrated by @nx/rollup:convert-to-inferred from project.json
+      const configValues =  ${JSON.stringify(singleConfiguration
+            ? {
+                ...defaultOptions,
+                ...configurationOptions,
+            }
+            : {
+                default: defaultOptions,
+                ...configurationOptions,
+            }, null, 2)}; 
+        
+      // Determine the correct configValue to use based on the configuration
+      const nxConfiguration = process.env.NX_TASK_TARGET_CONFIGURATION ?? 'default';
+      
+      const options = {
+        ...configValues.default,
+        ...configValues[nxConfiguration],
+      };
+      
+      ${oldRollupConfig.length > 0 ? 'let' : 'const'} config = withNx(options, {
+        // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options
+        // e.g. 
+        // output: { sourcemap: true },
+      });
+      
+      ${oldRollupConfig
+            // Normalize path
+            .map((s) => `config = require('${s}')(config, options);`)
+            .join('\n')}
+      
+      module.exports = config;
+    `;
+    }
+    else {
+        return (0, devkit_1.stripIndents) `
+      const { withNx } = require('@nx/rollup/with-nx');
+      
+      // These options were migrated by @nx/rollup:convert-to-inferred from project.json
+      const options = ${JSON.stringify(defaultOptions, null, 2)};
+      
+      ${oldRollupConfig.length > 0 ? 'let' : 'const'} config = withNx(options, {
+        // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options
+        // e.g. 
+        // output: { sourcemap: true },
+      });
+      
+      ${oldRollupConfig
+            // Normalize path
+            .map((s) => `config = require('${s}')(config, options);`)
+            .join('\n')}
+      
+      module.exports = config;
+    `;
+    }
+}

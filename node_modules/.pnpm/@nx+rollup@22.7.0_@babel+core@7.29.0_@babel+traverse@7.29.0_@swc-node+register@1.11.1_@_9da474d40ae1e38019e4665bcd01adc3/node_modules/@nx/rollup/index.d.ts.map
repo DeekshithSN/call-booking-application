@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../packages/rollup/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,sBAAsB,EAAE,MAAM,8CAA8C,CAAC;AACtF,OAAO,EAAE,sBAAsB,EAAE,CAAC;AAGlC,wDAAwD;AACxD,eAAO,MAAM,sBAAsB,+BAAyB,CAAC;AAE7D,cAAc,4BAA4B,CAAC;AAC3C,YAAY,EACV,gBAAgB,EAChB,OAAO,EACP,qBAAqB,GACtB,MAAM,+BAA+B,CAAC;AACvC,cAAc,oCAAoC,CAAC"}

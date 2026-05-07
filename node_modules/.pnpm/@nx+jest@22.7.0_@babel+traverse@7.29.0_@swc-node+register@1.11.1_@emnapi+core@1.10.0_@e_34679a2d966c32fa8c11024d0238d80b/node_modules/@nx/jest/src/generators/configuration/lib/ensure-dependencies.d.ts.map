@@ -1,0 +1,1 @@
+{"version":3,"file":"ensure-dependencies.d.ts","sourceRoot":"","sources":["../../../../../../../packages/jest/src/generators/configuration/lib/ensure-dependencies.ts"],"names":[],"mappings":"AAAA,OAAO,EAAgC,KAAK,IAAI,EAAE,MAAM,YAAY,CAAC;AAErE,OAAO,KAAK,EAAE,2BAA2B,EAAE,MAAM,WAAW,CAAC;AAE7D,wBAAgB,kBAAkB,CAChC,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,OAAO,CAAC,2BAA2B,CAAC,0CAmD9C"}

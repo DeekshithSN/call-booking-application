@@ -1,0 +1,84 @@
+{
+  "name": "@swc-node/register",
+  "version": "1.11.1",
+  "description": "SWC node register",
+  "keywords": [
+    "swc",
+    "babel",
+    "ts-node",
+    "napi-rs",
+    "uglify",
+    "node-rs",
+    "napi-rs",
+    "napi",
+    "n-api",
+    "esbuild",
+    "tsc",
+    "webpack"
+  ],
+  "author": "LongYinan <github@lyn.one>",
+  "homepage": "https://github.com/swc-project/swc-node",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib",
+    "esm",
+    "README.md",
+    "LICENSE",
+    "*.d.ts"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swc-project/swc-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/swc-project/swc-node/issues"
+  },
+  "dependencies": {
+    "@swc-node/core": "^1.14.1",
+    "@swc-node/sourcemap-support": "^0.6.1",
+    "colorette": "^2.0.20",
+    "debug": "^4.4.1",
+    "oxc-resolver": "^11.6.1",
+    "pirates": "^4.0.7",
+    "tslib": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@swc/core": ">= 1.4.13",
+    "typescript": ">= 4.3"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.13.3",
+    "@swc/helpers": "^0.5.17",
+    "@types/debug": "^4.1.12",
+    "lodash": "^4.17.21",
+    "sinon": "^21.0.0",
+    "typescript": "^5.9.2"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/Brooooooklyn"
+  },
+  "exports": {
+    ".": {
+      "node": "./index.js"
+    },
+    "./read-default-tsconfig": {
+      "node": "./lib/read-default-tsconfig.js"
+    },
+    "./register": {
+      "require": "./lib/register.js"
+    },
+    "./esm": {
+      "import": "./esm/esm.mjs"
+    },
+    "./esm-register": {
+      "import": "./esm/esm-register.mjs"
+    }
+  }
+}

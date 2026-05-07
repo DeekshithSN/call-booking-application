@@ -1,0 +1,82 @@
+import { AsyncHook } from "../utils/hooks/asyncHook.js";
+import { SyncWaterfallHook } from "../utils/hooks/syncWaterfallHook.js";
+import { AsyncWaterfallHook } from "../utils/hooks/asyncWaterfallHooks.js";
+import { PluginSystem } from "../utils/hooks/pluginSystem.js";
+import { Federation } from "../global.js";
+import { LoadRemoteMatch } from "../remote/index.js";
+import { ModuleFederation } from "../core.js";
+import { CallFrom, InitScope, InitTokens, Options, ShareInfos, ShareScopeMap, ShareStrategy, Shared, UserOptions } from "../type/config.js";
+//#region src/shared/index.d.ts
+declare class SharedHandler {
+  host: ModuleFederation;
+  shareScopeMap: ShareScopeMap;
+  hooks: PluginSystem<{
+    beforeRegisterShare: SyncWaterfallHook<{
+      pkgName: string;
+      shared: Shared;
+      origin: ModuleFederation;
+    }>;
+    afterResolve: AsyncWaterfallHook<LoadRemoteMatch>;
+    beforeLoadShare: AsyncWaterfallHook<{
+      pkgName: string;
+      shareInfo?: Shared;
+      shared: Options["shared"];
+      origin: ModuleFederation;
+    }>;
+    loadShare: AsyncHook<[ModuleFederation, string, ShareInfos], false | void | Promise<false | void>>;
+    resolveShare: SyncWaterfallHook<{
+      shareScopeMap: ShareScopeMap;
+      scope: string;
+      pkgName: string;
+      version: string;
+      shareInfo: Shared;
+      GlobalFederation: Federation;
+      resolver: () => {
+        shared: Shared;
+        useTreesShaking: boolean;
+      } | undefined;
+    }>;
+    initContainerShareScopeMap: SyncWaterfallHook<{
+      shareScope: ShareScopeMap[string];
+      options: Options;
+      origin: ModuleFederation;
+      scopeName: string;
+      hostShareScopeMap?: ShareScopeMap;
+    }>;
+  }>;
+  initTokens: InitTokens;
+  constructor(host: ModuleFederation);
+  registerShared(globalOptions: Options, userOptions: UserOptions): {
+    newShareInfos: ShareInfos;
+    allShareInfos: {
+      [pkgName: string]: Shared[];
+    };
+  };
+  loadShare<T>(pkgName: string, extraOptions?: {
+    customShareInfo?: Partial<Shared>;
+    resolver?: (sharedOptions: ShareInfos[string]) => Shared;
+  }): Promise<false | (() => T | undefined)>;
+  /**
+   * This function initializes the sharing sequence (executed only once per share scope).
+   * It accepts one argument, the name of the share scope.
+   * If the share scope does not exist, it creates one.
+   */
+  initializeSharing(shareScopeName?: string, extraOptions?: {
+    initScope?: InitScope;
+    from?: CallFrom;
+    strategy?: ShareStrategy;
+  }): Array<Promise<void>>;
+  loadShareSync<T>(pkgName: string, extraOptions?: {
+    from?: 'build' | 'runtime';
+    customShareInfo?: Partial<Shared>;
+    resolver?: (sharedOptions: ShareInfos[string]) => Shared;
+  }): () => T | never;
+  initShareScopeMap(scopeName: string, shareScope: ShareScopeMap[string], extraOptions?: {
+    hostShareScopeMap?: ShareScopeMap;
+  }): void;
+  private setShared;
+  private _setGlobalShareScopeMap;
+}
+//#endregion
+export { SharedHandler };
+//# sourceMappingURL=index.d.ts.map

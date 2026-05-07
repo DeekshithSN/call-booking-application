@@ -1,0 +1,15 @@
+import { Tree } from '@nx/devkit';
+import { type FoundTarget } from '@nx/cypress/src/utils/find-target-options';
+export declare function configureCypressCT(tree: Tree, options: {
+    project: string;
+    buildTarget: string;
+    bundler: 'vite' | 'webpack';
+    validExecutorNames: Set<string>;
+}): Promise<FoundTarget>;
+export declare function getBundlerFromTarget(found: FoundTarget, tree: Tree): Promise<'vite' | 'webpack'>;
+export declare function getActualBundler(tree: Tree, options: {
+    buildTarget?: string;
+    bundler?: 'vite' | 'webpack';
+}, found: FoundTarget): Promise<"webpack" | "vite">;
+export declare function isComponent(tree: Tree, filePath: string): boolean;
+//# sourceMappingURL=ct-utils.d.ts.map

@@ -1,0 +1,6 @@
+import { type GeneratorCallback, type Tree } from '@nx/devkit';
+import type { JestInitSchema } from './schema';
+export declare function jestInitGenerator(tree: Tree, options: JestInitSchema): Promise<GeneratorCallback>;
+export declare function jestInitGeneratorInternal(tree: Tree, options: JestInitSchema): Promise<GeneratorCallback>;
+export default jestInitGenerator;
+//# sourceMappingURL=init.d.ts.map

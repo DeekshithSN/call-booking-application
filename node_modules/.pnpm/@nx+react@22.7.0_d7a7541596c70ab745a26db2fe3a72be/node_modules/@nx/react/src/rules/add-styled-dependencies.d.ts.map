@@ -1,0 +1,1 @@
+{"version":3,"file":"add-styled-dependencies.d.ts","sourceRoot":"","sources":["../../../../../packages/react/src/rules/add-styled-dependencies.ts"],"names":[],"mappings":"AAAA,OAAO,EAAgC,IAAI,EAAE,MAAM,YAAY,CAAC;AAMhE,wBAAgB,2BAA2B,CACzC,IAAI,EAAE,IAAI,EACV,OAAO,EAAE;IAAE,YAAY,CAAC,EAAE,MAAM,CAAC;IAAC,QAAQ,CAAC,EAAE,OAAO,GAAG,KAAK,CAAA;CAAE,0CAgB/D"}

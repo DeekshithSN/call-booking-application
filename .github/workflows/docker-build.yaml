@@ -1,0 +1,69 @@
+name: Nx Docker Build & Push
+
+on:
+  workflow_run:
+    workflows: ["Nx Continuous Integration"]
+    types: [completed]
+    branches: ["development", "main"]
+
+  workflow_dispatch: # allow manual build & push
+
+jobs:
+  docker:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+
+    # ✅ Run if CI succeeded OR manual trigger AND commit message contains [deploy]
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       contains(github.event.workflow_run.head_commit.message, '[deploy]'))
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set NX SHAs
+        uses: nrwl/nx-set-shas@v4
+
+      # ✅ Docker image versioning
+      - name: Set Docker Tag
+        run: |
+          TAG=${GITHUB_RUN_NUMBER}-${GITHUB_SHA::10}
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
+      # ✅ Login to Docker Hub
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ✅ Build affected Docker images only
+      - name: Build Docker images
+        run: pnpm nx affected --target=docker-build
+
+      # ✅ Push affected Docker images only
+      - name: Push Docker images
+        run: pnpm nx affected --target=docker-push

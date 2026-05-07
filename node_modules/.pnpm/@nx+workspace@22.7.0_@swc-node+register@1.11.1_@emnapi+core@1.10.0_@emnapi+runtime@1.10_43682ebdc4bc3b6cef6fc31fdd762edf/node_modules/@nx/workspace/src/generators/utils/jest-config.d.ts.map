@@ -1,0 +1,1 @@
+{"version":3,"file":"jest-config.d.ts","sourceRoot":"","sources":["../../../../../../packages/workspace/src/generators/utils/jest-config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,KAAK,IAAI,EAAE,MAAM,YAAY,CAAC;AAE1D,wBAAgB,kBAAkB,CAAC,IAAI,EAAE,IAAI,GAAG,MAAM,GAAG,IAAI,CAc5D;AAED,wBAAgB,qBAAqB,CACnC,IAAI,EAAE,IAAI,EACV,WAAW,EAAE,MAAM,GAClB,MAAM,GAAG,IAAI,CAWf"}

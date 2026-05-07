@@ -1,0 +1,1 @@
+export { GB_WLS as default } from '../index.js'

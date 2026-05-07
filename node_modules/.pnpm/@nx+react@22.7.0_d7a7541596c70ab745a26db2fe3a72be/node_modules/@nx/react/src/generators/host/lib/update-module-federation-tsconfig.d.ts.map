@@ -1,0 +1,1 @@
+{"version":3,"file":"update-module-federation-tsconfig.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/host/lib/update-module-federation-tsconfig.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,KAAK,IAAI,EAAc,MAAM,YAAY,CAAC;AACtE,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAC;AAG7C,wBAAgB,8BAA8B,CAC5C,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,gBAAgB,QAmC1B"}

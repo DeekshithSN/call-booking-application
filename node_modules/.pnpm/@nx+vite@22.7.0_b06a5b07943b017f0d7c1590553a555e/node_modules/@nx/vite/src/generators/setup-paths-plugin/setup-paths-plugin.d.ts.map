@@ -1,0 +1,1 @@
+{"version":3,"file":"setup-paths-plugin.d.ts","sourceRoot":"","sources":["../../../../../../packages/vite/src/generators/setup-paths-plugin/setup-paths-plugin.ts"],"names":[],"mappings":"AAAA,OAAO,EAKL,IAAI,EACL,MAAM,YAAY,CAAC;AAGpB,wBAAsB,gBAAgB,CACpC,IAAI,EAAE,IAAI,EACV,MAAM,EAAE;IAAE,UAAU,CAAC,EAAE,OAAO,CAAA;CAAE,iBAcjC;AAqID,eAAe,gBAAgB,CAAC"}

@@ -1,0 +1,1 @@
+export { GB_ENG as default } from '../index.js'

@@ -1,0 +1,1 @@
+{"version":3,"file":"normalize-options.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/component/lib/normalize-options.ts"],"names":[],"mappings":"AAAA,OAAO,EAA2C,IAAI,EAAE,MAAM,YAAY,CAAC;AAK3E,OAAO,EAAE,gBAAgB,EAAE,MAAM,EAAE,MAAM,WAAW,CAAC;AAGrD,wBAAsB,gBAAgB,CACpC,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,MAAM,GACd,OAAO,CAAC,gBAAgB,CAAC,CAgE3B"}

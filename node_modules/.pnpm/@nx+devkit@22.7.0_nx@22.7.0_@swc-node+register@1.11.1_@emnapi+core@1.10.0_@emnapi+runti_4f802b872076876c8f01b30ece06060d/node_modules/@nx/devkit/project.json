@@ -1,0 +1,14 @@
+{
+    "name": "devkit",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/devkit",
+    "projectType": "library",
+    "targets": {
+        "build": {
+            "outputs": ["{workspaceRoot}/dist/packages/devkit/README.md"],
+            "command": "node ./scripts/copy-readme.js devkit",
+            "inputs": ["copyReadme"],
+            "dependsOn": ["^build", "build-base"]
+        }
+    }
+}

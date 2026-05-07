@@ -1,0 +1,90 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NxModuleFederationPlugin = void 0;
+const utils_1 = require("../../../with-module-federation/angular/utils");
+const utils_2 = require("../../../utils");
+const devkit_1 = require("@nx/devkit");
+class NxModuleFederationPlugin {
+    constructor(_options, configOverride) {
+        this._options = _options;
+        this.configOverride = configOverride;
+    }
+    apply(compiler) {
+        if (global.NX_GRAPH_CREATION) {
+            return;
+        }
+        // This is required to ensure Module Federation will build the project correctly
+        compiler.options.optimization ??= {};
+        compiler.options.optimization.runtimeChunk =
+            process.env['WEBPACK_SERVE'] && !this._options.config.exposes
+                ? (compiler.options.optimization?.runtimeChunk ?? undefined)
+                : false;
+        if (compiler.options.optimization.splitChunks) {
+            compiler.options.optimization.splitChunks.cacheGroups ??= {};
+            compiler.options.optimization.splitChunks.cacheGroups.default = false;
+            compiler.options.optimization.splitChunks.cacheGroups.common = false;
+        }
+        compiler.options.output.publicPath = !compiler.options.output.publicPath
+            ? 'auto'
+            : compiler.options.output.publicPath;
+        compiler.options.output.uniqueName = this._options.config.name;
+        // Ensure workspace root is in resolve.modules so that expose paths
+        // like "apps/remote/src/..." resolve correctly without baseUrl.
+        compiler.options.resolve ??= {};
+        compiler.options.resolve.modules = [
+            ...(compiler.options.resolve.modules ?? ['node_modules']),
+            devkit_1.workspaceRoot,
+        ];
+        if (this._options.isServer) {
+            compiler.options.target = 'async-node';
+            compiler.options.output.library ??= {
+                type: 'commonjs-module',
+            };
+            compiler.options.output.library.type = 'commonjs-module';
+        }
+        else {
+            // Ensure ESM output is enabled when using library type 'module'.
+            // Without these, remoteEntry.js emits `export` statements but the
+            // runtime loads it as a classic script, causing "Unexpected token 'export'".
+            compiler.options.experiments ??= {};
+            compiler.options.experiments.outputModule = true;
+            compiler.options.output.module = true;
+        }
+        const config = (0, utils_1.getModuleFederationConfigSync)(this._options.config, {
+            isServer: this._options.isServer,
+        }, true);
+        const sharedLibraries = config.sharedLibraries;
+        const sharedDependencies = config.sharedDependencies;
+        const mappedRemotes = config.mappedRemotes;
+        const runtimePlugins = [];
+        if (this.configOverride?.runtimePlugins) {
+            runtimePlugins.push(...(this.configOverride.runtimePlugins ?? []));
+        }
+        if (this._options.isServer) {
+            runtimePlugins.push(require.resolve('@module-federation/node/runtimePlugin'));
+        }
+        new (require('@module-federation/enhanced/rspack').ModuleFederationPlugin)({
+            name: (0, utils_2.normalizeProjectName)(this._options.config.name),
+            filename: 'remoteEntry.js',
+            exposes: this._options.config.exposes,
+            remotes: mappedRemotes,
+            shared: {
+                ...(sharedDependencies ?? {}),
+            },
+            ...(this._options.isServer
+                ? {
+                    library: {
+                        type: 'commonjs-module',
+                    },
+                    remoteType: 'script',
+                }
+                : { library: { type: 'module' } }),
+            ...(this.configOverride ? this.configOverride : {}),
+            runtimePlugins,
+        }).apply(compiler);
+        if (sharedLibraries) {
+            sharedLibraries.getReplacementPlugin().apply(compiler);
+        }
+    }
+}
+exports.NxModuleFederationPlugin = NxModuleFederationPlugin;

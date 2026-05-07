@@ -1,0 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addRouting = addRouting;
+const devkit_1 = require("@nx/devkit");
+const ensure_typescript_1 = require("@nx/js/src/utils/typescript/ensure-typescript");
+const ast_utils_1 = require("../../../utils/ast-utils");
+const versions_1 = require("../../../utils/versions");
+const maybe_js_1 = require("../../../utils/maybe-js");
+let tsModule;
+function addRouting(host, options) {
+    if (!options.routing) {
+        return () => { };
+    }
+    if (!tsModule) {
+        tsModule = (0, ensure_typescript_1.ensureTypescript)();
+    }
+    const appPath = (0, devkit_1.joinPathFragments)(options.appProjectRoot, (0, maybe_js_1.maybeJs)({
+        js: options.js,
+        useJsx: options.bundler === 'vite' || options.bundler === 'rspack',
+    }, `src/app/${options.fileName}.tsx`));
+    const appFileContent = host.read(appPath, 'utf-8');
+    const appSource = tsModule.createSourceFile(appPath, appFileContent, tsModule.ScriptTarget.Latest, true);
+    const changes = (0, devkit_1.applyChangesToString)(appFileContent, (0, ast_utils_1.addInitialRoutes)(appPath, appSource, options.inSourceTests));
+    host.write(appPath, changes);
+    if (!options.skipPackageJson) {
+        return (0, devkit_1.addDependenciesToPackageJson)(host, { 'react-router-dom': versions_1.reactRouterDomVersion }, {});
+    }
+    return () => { };
+}

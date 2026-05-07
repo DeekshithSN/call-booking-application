@@ -1,0 +1,14 @@
+image: node:22
+
+pages:
+  script:
+  - npm install
+  - npm run build
+  - mv ./website ./public
+
+  artifacts:
+    paths:
+    - public
+
+  only:
+  - master

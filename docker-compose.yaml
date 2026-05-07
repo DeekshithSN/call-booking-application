@@ -1,3 +1,6 @@
+
+
+/*
 version: '2'
 
 services:
@@ -42,3 +45,31 @@ services:
       - 3001:3000
     depends_on:
       - admin-api
+\*
+======================≈===≈====================================================================================
+
+version: "3.9"
+
+services:
+  frontend:
+    image: frontend
+    container_name: frontend
+    ports:
+      - "80:3000"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+  backend:
+    image: backend
+    container_name: backend
+    ports:
+      - "1004:1004"
+    env_file:
+      - .env        # ✅ Load Mongo URI + other vars from .env
+    networks:
+      - appnet
+
+networks:
+  appnet:

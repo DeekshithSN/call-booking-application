@@ -1,0 +1,7 @@
+import { type TargetConfiguration, type Tree } from '@nx/devkit';
+import { AggregatedLog } from '@nx/devkit/src/generators/plugin-migrations/aggregate-log-util';
+export declare function previewPostTargetTransformer(migrationLogs: AggregatedLog): (target: TargetConfiguration, tree: Tree, projectDetails: {
+    projectName: string;
+    root: string;
+}, inferredTargetConfiguration: TargetConfiguration) => TargetConfiguration<any>;
+//# sourceMappingURL=preview-post-target-transformer.d.ts.map

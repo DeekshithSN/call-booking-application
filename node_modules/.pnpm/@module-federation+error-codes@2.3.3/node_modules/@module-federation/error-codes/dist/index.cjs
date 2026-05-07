@@ -1,0 +1,25 @@
+Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+const require_error_codes = require('./error-codes.cjs');
+const require_getShortErrorMsg = require('./getShortErrorMsg.cjs');
+const require_desc = require('./desc.cjs');
+
+exports.BUILD_001 = require_error_codes.BUILD_001;
+exports.BUILD_002 = require_error_codes.BUILD_002;
+exports.RUNTIME_001 = require_error_codes.RUNTIME_001;
+exports.RUNTIME_002 = require_error_codes.RUNTIME_002;
+exports.RUNTIME_003 = require_error_codes.RUNTIME_003;
+exports.RUNTIME_004 = require_error_codes.RUNTIME_004;
+exports.RUNTIME_005 = require_error_codes.RUNTIME_005;
+exports.RUNTIME_006 = require_error_codes.RUNTIME_006;
+exports.RUNTIME_007 = require_error_codes.RUNTIME_007;
+exports.RUNTIME_008 = require_error_codes.RUNTIME_008;
+exports.RUNTIME_009 = require_error_codes.RUNTIME_009;
+exports.RUNTIME_010 = require_error_codes.RUNTIME_010;
+exports.RUNTIME_011 = require_error_codes.RUNTIME_011;
+exports.RUNTIME_012 = require_error_codes.RUNTIME_012;
+exports.TYPE_001 = require_error_codes.TYPE_001;
+exports.buildDescMap = require_desc.buildDescMap;
+exports.errorDescMap = require_desc.errorDescMap;
+exports.getShortErrorMsg = require_getShortErrorMsg.getShortErrorMsg;
+exports.runtimeDescMap = require_desc.runtimeDescMap;
+exports.typeDescMap = require_desc.typeDescMap;

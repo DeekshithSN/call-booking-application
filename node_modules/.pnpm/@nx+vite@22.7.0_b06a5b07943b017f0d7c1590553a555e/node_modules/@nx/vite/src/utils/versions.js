@@ -1,0 +1,36 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.vitestV1CoverageIstanbulVersion = exports.vitestV1CoverageV8Version = exports.vitestCoverageIstanbulVersion = exports.vitestV2CoverageIstanbulVersion = exports.vitestV3CoverageIstanbulVersion = exports.vitestV4CoverageIstanbulVersion = exports.vitestCoverageV8Version = exports.vitestV2CoverageV8Version = exports.vitestV3CoverageV8Version = exports.vitestV4CoverageV8Version = exports.analogVitestAngular = exports.jitiVersion = exports.edgeRuntimeVmVersion = exports.happyDomVersion = exports.ajvVersion = exports.vitePluginDtsVersion = exports.jsdomVersion = exports.vitePluginReactSwcVersion = exports.vitePluginReactV4Version = exports.vitePluginReactVersion = exports.vitestV1Version = exports.vitestVersion = exports.vitestV2Version = exports.vitestV3Version = exports.vitestV4Version = exports.viteV5Version = exports.viteV6Version = exports.viteV7Version = exports.viteVersion = exports.nxVersion = void 0;
+exports.nxVersion = require('../../package.json').version;
+// Also update @nx/remix/utils/versions when changing vite version
+exports.viteVersion = '^8.0.0';
+exports.viteV7Version = '^7.0.0';
+exports.viteV6Version = '^6.0.0';
+exports.viteV5Version = '^5.0.0';
+// TODO(v23): Remove vitest from here since once we drop vitest support in favor of @nx/vitest.
+exports.vitestV4Version = '~4.1.0';
+exports.vitestV3Version = '^3.0.0';
+exports.vitestV2Version = '^2.1.8';
+exports.vitestVersion = exports.vitestV4Version;
+exports.vitestV1Version = '^1.3.1';
+exports.vitePluginReactVersion = '^6.0.0';
+exports.vitePluginReactV4Version = '^4.2.0';
+exports.vitePluginReactSwcVersion = '^4.3.0';
+exports.jsdomVersion = '~22.1.0';
+exports.vitePluginDtsVersion = '~4.5.0';
+exports.ajvVersion = '^8.0.0';
+exports.happyDomVersion = '~9.20.3';
+exports.edgeRuntimeVmVersion = '~3.0.2';
+exports.jitiVersion = '2.4.2';
+exports.analogVitestAngular = '~2.1.2';
+// Coverage providers
+exports.vitestV4CoverageV8Version = '~4.1.0';
+exports.vitestV3CoverageV8Version = '^3.0.5';
+exports.vitestV2CoverageV8Version = '^2.1.8';
+exports.vitestCoverageV8Version = exports.vitestV4CoverageV8Version;
+exports.vitestV4CoverageIstanbulVersion = '~4.1.0';
+exports.vitestV3CoverageIstanbulVersion = '^3.0.5';
+exports.vitestV2CoverageIstanbulVersion = '^2.1.8';
+exports.vitestCoverageIstanbulVersion = exports.vitestV4CoverageIstanbulVersion;
+exports.vitestV1CoverageV8Version = '^1.0.4';
+exports.vitestV1CoverageIstanbulVersion = '^1.0.4';

@@ -1,0 +1,1 @@
+{"version":3,"file":"remove-tsconfig-option-from-jest-executor.d.ts","sourceRoot":"","sources":["../../../../../../packages/jest/src/migrations/update-21-0-0/remove-tsconfig-option-from-jest-executor.ts"],"names":[],"mappings":"AAAA,OAAO,EAKL,KAAK,IAAI,EAGV,MAAM,YAAY,CAAC;AAKpB,yBAA+B,IAAI,EAAE,IAAI,iBA8DxC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"runtime-library-control.plugin.d.ts","sourceRoot":"","sources":["../../../../../../packages/module-federation/src/utils/plugins/runtime-library-control.plugin.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,6BAA6B,EAAE,MAAM,qCAAqC,CAAC;AAgBzF,QAAA,MAAM,6BAA6B,EAAE,MAAM,6BAoDxC,CAAC;AAEJ,eAAe,6BAA6B,CAAC"}

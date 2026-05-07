@@ -1,0 +1,5 @@
+import { ExecutorContext } from '@nx/devkit';
+import { VitestExecutorOptions } from '../schema';
+export declare function getOptions(options: VitestExecutorOptions, context: ExecutorContext, projectRoot: string): Promise<Record<string, any>>;
+export declare function getOptionsAsArgv(obj: Record<string, any>): string[];
+//# sourceMappingURL=utils.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"replace-getJestProjects-with-getJestProjectsAsync.d.ts","sourceRoot":"","sources":["../../../../../../packages/jest/src/migrations/update-21-0-0/replace-getJestProjects-with-getJestProjectsAsync.ts"],"names":[],"mappings":"AAIA,OAAO,EAAa,IAAI,EAAE,MAAM,YAAY,CAAC;AAU7C,wBAA8B,MAAM,CAAC,IAAI,EAAE,IAAI,iBA6H9C"}

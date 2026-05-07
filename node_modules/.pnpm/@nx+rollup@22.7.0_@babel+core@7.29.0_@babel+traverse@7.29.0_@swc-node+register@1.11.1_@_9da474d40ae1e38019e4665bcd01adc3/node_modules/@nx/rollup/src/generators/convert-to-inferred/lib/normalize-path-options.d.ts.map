@@ -1,0 +1,1 @@
+{"version":3,"file":"normalize-path-options.d.ts","sourceRoot":"","sources":["../../../../../../../packages/rollup/src/generators/convert-to-inferred/lib/normalize-path-options.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,qBAAqB,EAAE,MAAM,kCAAkC,CAAC;AAWzE,wBAAgB,oBAAoB,CAClC,WAAW,EAAE,MAAM,EACnB,OAAO,EAAE,qBAAqB,GAC7B,IAAI,CAmBN"}

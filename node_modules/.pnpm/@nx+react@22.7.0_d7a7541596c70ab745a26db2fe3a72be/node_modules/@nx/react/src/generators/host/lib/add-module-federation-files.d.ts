@@ -1,0 +1,7 @@
+import { Tree } from '@nx/devkit';
+import { NormalizedSchema } from '../schema';
+export declare function addModuleFederationFiles(host: Tree, options: NormalizedSchema, defaultRemoteManifest: {
+    name: string;
+    port: number;
+}[]): void;
+//# sourceMappingURL=add-module-federation-files.d.ts.map

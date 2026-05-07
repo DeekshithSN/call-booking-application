@@ -1,0 +1,148 @@
+{
+  "packageJsonUpdates": {
+    "20.4.0": {
+      "version": "20.4.0-beta.0",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^0.8.8",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^0.8.8",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.8.8",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.6.21",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "20.5.0": {
+      "version": "20.5.0-beta.5",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^0.9.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^0.9.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.9.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.6.26",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "21.2.0": {
+      "version": "21.2.0-beta.6",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^0.15.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^0.15.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.15.0",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "21.3.0": {
+      "version": "21.3.0-beta.8",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^0.17.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.7.9",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.17.0",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "21.4.0": {
+      "version": "21.4.0-beta.8",
+      "packages": {
+        "http-proxy-middleware": {
+          "version": "^3.0.5",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.18.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/enhanced": {
+          "version": "^0.18.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^0.18.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.7.11",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "22.2.0": {
+      "version": "22.2.0-beta.0",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^0.21.2",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^0.21.2",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^0.21.2",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.7.21",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    },
+    "22.6.0": {
+      "version": "22.6.0-beta.10",
+      "x-prompt": "Bump @module-federation packages to v2.x to resolve koa CVE-2026-27959 (via dts-plugin)",
+      "packages": {
+        "@module-federation/enhanced": {
+          "version": "^2.1.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/runtime": {
+          "version": "^2.1.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/sdk": {
+          "version": "^2.1.0",
+          "alwaysAddToPackageJson": false
+        },
+        "@module-federation/node": {
+          "version": "^2.7.21",
+          "alwaysAddToPackageJson": false
+        }
+      }
+    }
+  }
+}

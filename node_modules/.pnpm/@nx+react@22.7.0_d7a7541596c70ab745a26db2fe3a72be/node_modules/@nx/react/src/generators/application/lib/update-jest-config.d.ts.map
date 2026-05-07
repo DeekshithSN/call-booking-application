@@ -1,0 +1,1 @@
+{"version":3,"file":"update-jest-config.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/application/lib/update-jest-config.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAC;AAC7C,OAAO,EAAE,IAAI,EAAc,MAAM,YAAY,CAAC;AAE9C,wBAAgB,gBAAgB,CAAC,IAAI,EAAE,IAAI,EAAE,OAAO,EAAE,gBAAgB,QAoCrE"}

@@ -1,0 +1,31 @@
+import { ProjectConfiguration, ProjectMetadata, TargetConfiguration, TargetMetadata } from '../../../config/workspace-json-project-json';
+import { TargetDefaults } from '../../../config/nx-json';
+import type { SourceInformation } from './source-maps';
+export declare function deepClone<T>(obj: T): T;
+export declare function resolveCommandSyntacticSugar(target: TargetConfiguration, key: string): TargetConfiguration;
+export declare function mergeMetadata<T = ProjectMetadata | TargetMetadata>(sourceMap: Record<string, [file: string, plugin: string]>, sourceInformation: [file: string, plugin: string], baseSourceMapPath: string, metadata: T, matchingMetadata?: T): T;
+/**
+ * Merges two targets.
+ *
+ * Most properties from `target` will overwrite any properties from `baseTarget`.
+ * Options and configurations are treated differently - they are merged together if the executor definition is compatible.
+ *
+ * @param target The target definition with higher priority
+ * @param baseTarget The target definition that should be overwritten. Can be undefined, in which case the target is returned as-is.
+ * @param projectConfigSourceMap The source map to be filled with metadata about where each property came from
+ * @param sourceInformation The metadata about where the new target was defined
+ * @param targetIdentifier The identifier for the target to merge, used for source map
+ * @returns A merged target configuration
+ */
+export declare function mergeTargetConfigurations(target: TargetConfiguration, baseTarget?: TargetConfiguration, projectConfigSourceMap?: Record<string, SourceInformation>, sourceInformation?: SourceInformation, targetIdentifier?: string): TargetConfiguration;
+/**
+ * Checks if targets options are compatible - used when merging configurations
+ * to avoid merging options for @nx/js:tsc into something like @nx/webpack:webpack.
+ *
+ * If the executors are both specified and don't match, the options aren't considered
+ * "compatible" and shouldn't be merged.
+ */
+export declare function isCompatibleTarget(a: TargetConfiguration, b: TargetConfiguration): boolean;
+export declare function mergeTargetDefaultWithTargetDefinition(targetName: string, project: ProjectConfiguration, targetDefault: Partial<TargetConfiguration>, sourceMap: Record<string, SourceInformation>): TargetConfiguration;
+export declare function resolveNxTokensInOptions<T extends Object | Array<unknown>>(object: T, project: ProjectConfiguration, key: string): T;
+export declare function readTargetDefaultsForTarget(targetName: string, targetDefaults: TargetDefaults, executor?: string): TargetDefaults[string];

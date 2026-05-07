@@ -1,0 +1,1 @@
+{"version":3,"file":"workspace-rule.d.ts","sourceRoot":"","sources":["../../../../../../packages/eslint/src/generators/workspace-rule/workspace-rule.ts"],"names":[],"mappings":"AAAA,OAAO,EAML,iBAAiB,EAKjB,IAAI,EACL,MAAM,YAAY,CAAC;AASpB,MAAM,WAAW,iCAAiC;IAChD,IAAI,EAAE,MAAM,CAAC;IACb,SAAS,EAAE,MAAM,CAAC;CACnB;AAED,wBAAsB,0BAA0B,CAC9C,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,iCAAiC,8BAiH3C"}

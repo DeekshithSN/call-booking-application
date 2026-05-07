@@ -1,0 +1,1 @@
+{"version":3,"file":"resolve-eslint-class.d.ts","sourceRoot":"","sources":["../../../../../packages/eslint/src/utils/resolve-eslint-class.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,QAAQ,CAAC;AAGrC,wBAAsB,kBAAkB,CAAC,IAAI,CAAC,EAAE;IAC9C,wBAAwB,EAAE,OAAO,CAAC;CACnC,GAAG,OAAO,CAAC,OAAO,MAAM,CAAC,CAsCzB"}

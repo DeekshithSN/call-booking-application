@@ -1,0 +1,65 @@
+{
+  "name": "call-booking-application",
+  "version": "1.0.0",
+  "description": "![ma](https://user-images.githubusercontent.com/29688323/179655923-e5d9ed72-176e-4956-897c-c1bb434d5c63.jpg)",
+  "main": "index.js",
+  "type": "commonjs",
+  "license": "ISC",
+  "author": "",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+   
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qzee-dev/call-booking-application.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qzee-dev/call-booking-application/issues"
+  },
+  "homepage": "https://github.com/qzee-dev/call-booking-application#readme",
+  "keywords": [],
+  "devDependencies": {
+    "@nx/js": "^22.6.5",
+    "@nx/node": "^22.6.5",
+    "@nx/react": "^22.6.5",
+    "@swc-node/register": "~1.11.1",
+    "@swc/core": "~1.15.5",
+    "@swc/helpers": "~0.5.18",
+    "nx": "^22.7.0"
+  },
+  "dependencies": {
+    "@cabify/prom-react": "^0.3.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.6.1",
+    "axios": "^1.15.2",
+    "bcryptjs": "^3.0.3",
+    "bootstrap": "^5.3.8",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "libphonenumber-js": "^1.12.42",
+    "moment": "^2.30.1",
+    "mongoose": "^9.5.0",
+    "multer": "^1.4.4",
+    "multer-gridfs-storage": "^5.0.2",
+    "nodemailer": "^8.0.7",
+    "prom-client": "^15.1.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^18.2.0",
+    "react-moment": "^1.2.2",
+    "react-phone-number-input": "^3.4.16",
+    "react-router-dom": "^6.30.3",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^5.2.0",
+    "xlsx": "^0.18.5"
+  }
+}

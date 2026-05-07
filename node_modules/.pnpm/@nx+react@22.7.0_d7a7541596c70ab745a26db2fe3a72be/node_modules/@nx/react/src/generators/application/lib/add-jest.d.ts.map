@@ -1,0 +1,1 @@
+{"version":3,"file":"add-jest.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/application/lib/add-jest.ts"],"names":[],"mappings":"AAAA,OAAO,EAAiB,iBAAiB,EAAE,IAAI,EAAc,MAAM,YAAY,CAAC;AAChF,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAC;AAI7C,wBAAsB,OAAO,CAC3B,IAAI,EAAE,IAAI,EACV,OAAO,EAAE,gBAAgB,GACxB,OAAO,CAAC,iBAAiB,CAAC,CAkD5B"}

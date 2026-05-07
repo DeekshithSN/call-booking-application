@@ -1,0 +1,1 @@
+{"version":3,"file":"core.cjs","names":["runtimeCore"],"sources":["../src/core.ts"],"sourcesContent":["import * as runtimeCore from '@module-federation/runtime-core';\n\nexport * from '@module-federation/runtime-core';\n\nexport default runtimeCore;\n"],"mappings":";;;;;;AAIA,mBAAeA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"federate-module.d.ts","sourceRoot":"","sources":["../../../../../../packages/react/src/generators/federate-module/federate-module.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,iBAAiB,EACjB,IAAI,EAQL,MAAM,YAAY,CAAC;AACpB,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAOlC,wBAAsB,uBAAuB,CAAC,IAAI,EAAE,IAAI,EAAE,MAAM,EAAE,MAAM,8BAiEvE;AAED,eAAe,uBAAuB,CAAC"}

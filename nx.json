@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "installation": {
+    "version": "22.7.0"
+  },
+  "analytics": true,
+  "plugins": [
+    "@nx/js",
+    "@nx/react",
+    "@nx/node"
+  ],
+  "targetDefaults": {
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "build": {
+      "cache": true
+    },
+    "docker-build": {
+      "cache": false
+    },
+    "docker-push": {
+      "cache": false
+    }
+  }
+}

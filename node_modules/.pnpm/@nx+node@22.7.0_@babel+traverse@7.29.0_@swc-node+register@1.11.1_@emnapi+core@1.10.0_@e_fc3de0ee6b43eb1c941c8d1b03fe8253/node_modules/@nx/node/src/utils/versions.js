@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.axiosVersion = exports.fastifyPluginVersion = exports.fastifySensibleVersion = exports.fastifyAutoloadVersion = exports.fastifyVersion = exports.koaTypingsVersion = exports.koaVersion = exports.expressTypingsVersion = exports.expressVersion = exports.typesNodeVersion = exports.tslibVersion = exports.nxVersion = void 0;
+exports.nxVersion = require('../../package.json').version;
+exports.tslibVersion = '^2.3.0';
+exports.typesNodeVersion = '20.19.9';
+exports.expressVersion = '^4.21.2';
+exports.expressTypingsVersion = '^4.17.21';
+exports.koaVersion = '^3.1.2';
+exports.koaTypingsVersion = '^3.0.0';
+exports.fastifyVersion = '~5.2.1';
+exports.fastifyAutoloadVersion = '~6.0.3';
+exports.fastifySensibleVersion = '~6.0.2';
+exports.fastifyPluginVersion = '~5.0.1';
+exports.axiosVersion = '^1.6.0';

@@ -1,0 +1,6 @@
+import { GeneratorCallback, Tree } from '@nx/devkit';
+import { Schema } from './schema';
+export declare function applicationGenerator(host: Tree, schema: Schema): Promise<GeneratorCallback>;
+export declare function applicationGeneratorInternal(host: Tree, schema: Schema): Promise<GeneratorCallback>;
+export default applicationGenerator;
+//# sourceMappingURL=application.d.ts.map

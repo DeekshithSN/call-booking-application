@@ -1,0 +1,1 @@
+{"version":3,"file":"migrate-vitest-to-vitest-package.d.ts","sourceRoot":"","sources":["../../../../../../packages/vite/src/migrations/update-22-2-0/migrate-vitest-to-vitest-package.ts"],"names":[],"mappings":"AAAA,OAAO,EAGL,KAAK,iBAAiB,EAItB,KAAK,IAAI,EAGV,MAAM,YAAY,CAAC;AAYpB;;;;;;;;GAQG;AACH,wBAA8B,4BAA4B,CACxD,IAAI,EAAE,IAAI,GACT,OAAO,CAAC,iBAAiB,CAAC,CAS5B"}

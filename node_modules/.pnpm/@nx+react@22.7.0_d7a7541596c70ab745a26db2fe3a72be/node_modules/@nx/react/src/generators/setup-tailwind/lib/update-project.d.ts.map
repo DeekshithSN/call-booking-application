@@ -1,0 +1,1 @@
+{"version":3,"file":"update-project.d.ts","sourceRoot":"","sources":["../../../../../../../packages/react/src/generators/setup-tailwind/lib/update-project.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,IAAI,EAAE,MAAM,YAAY,CAAC;AAG7D,OAAO,EAAE,oBAAoB,EAAE,MAAM,WAAW,CAAC;AAEjD,wBAAgB,aAAa,CAC3B,IAAI,EAAE,IAAI,EACV,MAAM,EAAE,oBAAoB,EAC5B,OAAO,EAAE,oBAAoB,QAU9B"}

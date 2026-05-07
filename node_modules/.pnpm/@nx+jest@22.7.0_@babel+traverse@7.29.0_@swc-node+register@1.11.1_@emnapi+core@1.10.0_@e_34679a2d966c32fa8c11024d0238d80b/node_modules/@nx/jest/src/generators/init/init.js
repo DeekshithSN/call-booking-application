@@ -1,0 +1,94 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jestInitGenerator = jestInitGenerator;
+exports.jestInitGeneratorInternal = jestInitGeneratorInternal;
+const devkit_1 = require("@nx/devkit");
+const add_plugin_1 = require("@nx/devkit/src/utils/add-plugin");
+const plugin_1 = require("../../plugins/plugin");
+const config_file_1 = require("../../utils/config/config-file");
+const versions_1 = require("../../utils/versions");
+function updateProductionFileSet(tree) {
+    const nxJson = (0, devkit_1.readNxJson)(tree);
+    const productionFileSet = nxJson.namedInputs?.production;
+    if (productionFileSet) {
+        // This is one of the patterns in the default jest patterns
+        productionFileSet.push(
+        // Remove spec, test, and snapshots from the production fileset
+        '!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)', 
+        // Remove tsconfig.spec.json
+        '!{projectRoot}/tsconfig.spec.json', 
+        // Remove jest.config.js/ts
+        '!{projectRoot}/jest.config.[jt]s', 
+        // Remove test-setup.js/ts
+        // TODO(meeroslav) this should be standardized
+        '!{projectRoot}/src/test-setup.[jt]s', '!{projectRoot}/test-setup.[jt]s');
+        // Dedupe and set
+        nxJson.namedInputs.production = Array.from(new Set(productionFileSet));
+    }
+    (0, devkit_1.updateNxJson)(tree, nxJson);
+}
+function addJestTargetDefaults(tree, presetExt) {
+    const nxJson = (0, devkit_1.readNxJson)(tree);
+    nxJson.targetDefaults ??= {};
+    nxJson.targetDefaults['@nx/jest:jest'] ??= {};
+    const productionFileSet = nxJson.namedInputs?.production;
+    nxJson.targetDefaults['@nx/jest:jest'].cache ??= true;
+    // Test targets depend on all their project's sources + production sources of dependencies
+    nxJson.targetDefaults['@nx/jest:jest'].inputs ??= [
+        'default',
+        productionFileSet ? '^production' : '^default',
+        `{workspaceRoot}/jest.preset.${presetExt}`,
+    ];
+    nxJson.targetDefaults['@nx/jest:jest'].options ??= {
+        passWithNoTests: true,
+    };
+    nxJson.targetDefaults['@nx/jest:jest'].configurations ??= {
+        ci: {
+            ci: true,
+            codeCoverage: true,
+        },
+    };
+    (0, devkit_1.updateNxJson)(tree, nxJson);
+}
+function updateDependencies(tree, options) {
+    const { jestVersion, nxVersion } = (0, versions_1.versions)(tree);
+    return (0, devkit_1.addDependenciesToPackageJson)(tree, {}, {
+        '@nx/jest': nxVersion,
+        jest: jestVersion,
+    }, undefined, options.keepExistingVersions);
+}
+function jestInitGenerator(tree, options) {
+    return jestInitGeneratorInternal(tree, { addPlugin: false, ...options });
+}
+async function jestInitGeneratorInternal(tree, options) {
+    const installedJestVersion = (0, versions_1.getInstalledJestVersion)(tree);
+    if (installedJestVersion) {
+        (0, versions_1.validateInstalledJestVersion)(tree);
+    }
+    const nxJson = (0, devkit_1.readNxJson)(tree);
+    const addPluginDefault = process.env.NX_ADD_PLUGINS !== 'false' &&
+        nxJson.useInferencePlugins !== false;
+    options.addPlugin ??= addPluginDefault;
+    const presetExt = (0, config_file_1.getPresetExt)(tree);
+    if (!tree.exists(`jest.preset.${presetExt}`)) {
+        updateProductionFileSet(tree);
+        if (options.addPlugin) {
+            await (0, add_plugin_1.addPlugin)(tree, await (0, devkit_1.createProjectGraphAsync)(), '@nx/jest/plugin', plugin_1.createNodesV2, {
+                targetName: ['test', 'jest:test', 'jest-test'],
+            }, options.updatePackageScripts);
+        }
+        else {
+            addJestTargetDefaults(tree, presetExt);
+        }
+    }
+    const tasks = [];
+    if (!options.skipPackageJson) {
+        tasks.push((0, devkit_1.removeDependenciesFromPackageJson)(tree, ['@nx/jest'], []));
+        tasks.push(updateDependencies(tree, options));
+    }
+    if (!options.skipFormat) {
+        await (0, devkit_1.formatFiles)(tree);
+    }
+    return (0, devkit_1.runTasksInSerial)(...tasks);
+}
+exports.default = jestInitGenerator;

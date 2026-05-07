@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+tslib_1.__exportStar(require("./build-static-remotes"), exports);
+tslib_1.__exportStar(require("./get-dynamic-manifest-file"), exports);
+tslib_1.__exportStar(require("./get-remotes"), exports);
+tslib_1.__exportStar(require("./get-static-remotes"), exports);
+tslib_1.__exportStar(require("./parse-remotes-config"), exports);
+tslib_1.__exportStar(require("./start-remote-proxies"), exports);
+tslib_1.__exportStar(require("./start-static-remotes-file-server"), exports);

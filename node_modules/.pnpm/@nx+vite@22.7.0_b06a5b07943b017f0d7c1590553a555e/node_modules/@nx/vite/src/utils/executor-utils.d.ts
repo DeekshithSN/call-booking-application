@@ -1,0 +1,13 @@
+import { ExecutorContext } from '@nx/devkit';
+export declare function validateTypes(opts: {
+    workspaceRoot: string;
+    tsconfig: string;
+    isVueProject?: boolean;
+}): Promise<void>;
+export declare function createBuildableTsConfig(projectRoot: string, options: {
+    tsConfig?: string;
+    buildLibsFromSource?: boolean;
+}, context: ExecutorContext): string;
+export declare function loadViteDynamicImport(): Promise<typeof import("vite")>;
+export declare function loadVitestDynamicImport(): Promise<typeof import("vitest/node")>;
+//# sourceMappingURL=executor-utils.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"normalize-options.d.ts","sourceRoot":"","sources":["../../../../../../packages/rollup/src/plugins/with-nx/normalize-options.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAEV,mCAAmC,EACnC,yBAAyB,EAC1B,MAAM,mBAAmB,CAAC;AAI3B,wBAAgB,gBAAgB,CAC9B,WAAW,EAAE,MAAM,EACnB,UAAU,EAAE,MAAM,EAClB,OAAO,EAAE,yBAAyB,GACjC,mCAAmC,CAoCrC"}

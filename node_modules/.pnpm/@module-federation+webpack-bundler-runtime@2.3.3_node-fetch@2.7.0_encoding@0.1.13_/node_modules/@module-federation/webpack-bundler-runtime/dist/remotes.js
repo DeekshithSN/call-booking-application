@@ -1,0 +1,73 @@
+import { attachShareScopeMap } from "./attachShareScopeMap.js";
+import { FEDERATION_SUPPORTED_TYPES } from "./constant.js";
+import { updateRemoteOptions } from "./updateOptions.js";
+import { ENCODE_NAME_PREFIX, decodeName } from "@module-federation/sdk";
+
+//#region src/remotes.ts
+function remotes(options) {
+	updateRemoteOptions(options);
+	const { chunkId, promises, webpackRequire, chunkMapping, idToExternalAndNameMapping, idToRemoteMap } = options;
+	attachShareScopeMap(webpackRequire);
+	if (webpackRequire.o(chunkMapping, chunkId)) chunkMapping[chunkId].forEach((id) => {
+		let getScope = webpackRequire.R;
+		if (!getScope) getScope = [];
+		const data = idToExternalAndNameMapping[id];
+		const remoteInfos = idToRemoteMap[id] || [];
+		if (getScope.indexOf(data) >= 0) return;
+		getScope.push(data);
+		if (data.p) return promises.push(data.p);
+		const onError = (error) => {
+			if (!error) error = /* @__PURE__ */ new Error("Container missing");
+			if (typeof error.message === "string") error.message += `\nwhile loading "${data[1]}" from ${data[2]}`;
+			webpackRequire.m[id] = () => {
+				throw error;
+			};
+			data.p = 0;
+		};
+		const handleFunction = (fn, arg1, arg2, d, next, first) => {
+			try {
+				const promise = fn(arg1, arg2);
+				if (promise && promise.then) {
+					const p = promise.then((result) => next(result, d), onError);
+					if (first) promises.push(data.p = p);
+					else return p;
+				} else return next(promise, d, first);
+			} catch (error) {
+				onError(error);
+			}
+		};
+		const onExternal = (external, _, first) => external ? handleFunction(webpackRequire.I, data[0], 0, external, onInitialized, first) : onError();
+		var onInitialized = (_, external, first) => handleFunction(external.get, data[1], getScope, 0, onFactory, first);
+		var onFactory = (factory) => {
+			data.p = 1;
+			webpackRequire.m[id] = (module) => {
+				module.exports = factory();
+			};
+		};
+		const onRemoteLoaded = () => {
+			try {
+				const remoteModuleName = decodeName(remoteInfos[0].name, ENCODE_NAME_PREFIX) + data[1].slice(1);
+				const instance = webpackRequire.federation.instance;
+				const loadRemote = () => webpackRequire.federation.instance.loadRemote(remoteModuleName, {
+					loadFactory: false,
+					from: "build"
+				});
+				if (instance.options.shareStrategy === "version-first") {
+					const shareScopes = Array.isArray(data[0]) ? data[0] : [data[0]];
+					return Promise.all(shareScopes.map((shareScope) => instance.sharedHandler.initializeSharing(shareScope))).then(() => {
+						return loadRemote();
+					});
+				}
+				return loadRemote();
+			} catch (error) {
+				onError(error);
+			}
+		};
+		if (remoteInfos.length === 1 && FEDERATION_SUPPORTED_TYPES.includes(remoteInfos[0].externalType) && remoteInfos[0].name) handleFunction(onRemoteLoaded, data[2], 0, 0, onFactory, 1);
+		else handleFunction(webpackRequire, data[2], 0, 0, onExternal, 1);
+	});
+}
+
+//#endregion
+export { remotes };
+//# sourceMappingURL=remotes.js.map

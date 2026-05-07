@@ -1,0 +1,31 @@
+import { Remote, RemoteInfo } from "./config.js";
+
+//#region src/type/preload.d.ts
+type depsPreloadArg = Omit<PreloadRemoteArgs, 'depsRemote'>;
+interface PreloadRemoteArgs {
+  nameOrAlias: string;
+  exposes?: Array<string>;
+  resourceCategory?: 'all' | 'sync';
+  share?: boolean;
+  depsRemote?: boolean | Array<depsPreloadArg>;
+  filter?: (assetUrl: string) => boolean;
+  prefetchInterface?: boolean;
+}
+type PreloadConfig = PreloadRemoteArgs;
+type PreloadOptions = Array<{
+  remote: Remote;
+  preloadConfig: PreloadConfig;
+}>;
+type EntryAssets = {
+  name: string;
+  url: string;
+  moduleInfo: RemoteInfo;
+};
+interface PreloadAssets {
+  cssAssets: Array<string>;
+  jsAssetsWithoutEntry: Array<string>;
+  entryAssets: Array<EntryAssets>;
+}
+//#endregion
+export { EntryAssets, PreloadAssets, PreloadConfig, PreloadOptions, PreloadRemoteArgs, depsPreloadArg };
+//# sourceMappingURL=preload.d.ts.map

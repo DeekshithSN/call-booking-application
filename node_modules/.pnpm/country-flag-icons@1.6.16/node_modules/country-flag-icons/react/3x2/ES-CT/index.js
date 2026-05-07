@@ -1,0 +1,1 @@
+export { ES_CT as default } from '../index.js'

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+tslib_1.__exportStar(require("./normalized-schema"), exports);
+tslib_1.__exportStar(require("./normalize-options"), exports);
+tslib_1.__exportStar(require("./create-targets"), exports);
+tslib_1.__exportStar(require("./create-project"), exports);
+tslib_1.__exportStar(require("./create-files"), exports);
+tslib_1.__exportStar(require("./add-dependencies"), exports);
+tslib_1.__exportStar(require("./add-linting"), exports);
+tslib_1.__exportStar(require("./add-proxy"), exports);

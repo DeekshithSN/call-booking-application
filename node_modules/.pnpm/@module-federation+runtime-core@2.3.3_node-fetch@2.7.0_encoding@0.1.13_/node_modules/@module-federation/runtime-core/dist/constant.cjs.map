@@ -1,0 +1,1 @@
+{"version":3,"file":"constant.cjs","names":[],"sources":["../src/constant.ts"],"sourcesContent":["export const DEFAULT_SCOPE = 'default';\nexport const DEFAULT_REMOTE_TYPE = 'global';\n"],"mappings":";;AAAA,MAAa,gBAAgB;AAC7B,MAAa,sBAAsB"}

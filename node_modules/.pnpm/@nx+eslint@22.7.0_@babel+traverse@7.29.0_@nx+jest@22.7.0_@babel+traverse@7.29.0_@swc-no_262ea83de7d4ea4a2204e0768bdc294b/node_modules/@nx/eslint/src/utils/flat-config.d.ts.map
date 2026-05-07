@@ -1,0 +1,1 @@
+{"version":3,"file":"flat-config.d.ts","sourceRoot":"","sources":["../../../../../packages/eslint/src/utils/flat-config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,MAAM,YAAY,CAAC;AAGlC,eAAO,MAAM,yBAAyB,UAOrC,CAAC;AAEF,eAAO,MAAM,yBAAyB,UASrC,CAAC;AAEF,wBAAgB,+BAA+B,CAAC,IAAI,EAAE,IAAI,GAAG,MAAM,CAOlE;AAED,wBAAgB,aAAa,CAAC,IAAI,CAAC,EAAE,IAAI,GAAG,OAAO,CA6BlD"}

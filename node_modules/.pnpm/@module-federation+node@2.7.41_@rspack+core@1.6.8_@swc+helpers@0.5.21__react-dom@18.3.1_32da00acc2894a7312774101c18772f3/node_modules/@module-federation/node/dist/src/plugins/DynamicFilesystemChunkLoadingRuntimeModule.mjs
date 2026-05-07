@@ -1,0 +1,111 @@
+import { __require } from "../../_virtual/_rolldown/runtime.mjs";
+import { generateExternalInstallChunkCode, generateHmrCode, generateHmrManifestCode, generateInstallChunk, generateLoadScript, generateLoadingCode, getInitialChunkIds, handleOnChunkLoad } from "./webpackChunkUtilities.mjs";
+import { fileSystemRunInContextStrategy, httpEvalStrategy, httpVmStrategy } from "../filesystem/stratagies.mjs";
+import { normalizeWebpackPath } from "@module-federation/sdk/normalize-webpack-path";
+import { SyncWaterfallHook } from "tapable";
+import { createInfrastructureLogger, createLogger } from "@module-federation/sdk";
+
+//#region src/plugins/DynamicFilesystemChunkLoadingRuntimeModule.ts
+const { RuntimeGlobals, RuntimeModule } = __require(normalizeWebpackPath("webpack"));
+const { getUndoPath } = __require(normalizeWebpackPath("webpack/lib/util/identifier"));
+const compileBooleanMatcher = __require(normalizeWebpackPath("webpack/lib/util/compileBooleanMatcher"));
+const createBundlerLogger = typeof createInfrastructureLogger === "function" ? createInfrastructureLogger : createLogger;
+var DynamicFilesystemChunkLoadingRuntimeModule = class extends RuntimeModule {
+	constructor(runtimeRequirements, options, chunkLoadingContext) {
+		super("readFile chunk loading", RuntimeModule.STAGE_ATTACH + 1);
+		this.hooks = { strategyCase: new SyncWaterfallHook(["source"]) };
+		this.logger = createBundlerLogger("[ DynamicFilesystemChunkLoadingRuntimeModule ]");
+		this.runtimeRequirements = runtimeRequirements;
+		this.options = options;
+		this.chunkLoadingContext = chunkLoadingContext;
+	}
+	/**
+	* @private
+	* @param {Chunk} chunk chunk
+	* @param {string} rootOutputDir root output directory
+	* @returns {string} generated code
+	*/
+	_generateBaseUri(chunk, rootOutputDir) {
+		const options = chunk.getEntryOptions();
+		if (options && options.baseUri) return `${RuntimeGlobals.baseURI} = ${JSON.stringify(options.baseUri)};`;
+		return `${RuntimeGlobals.baseURI} = require("url").pathToFileURL(${rootOutputDir ? `__dirname + ${JSON.stringify("/" + rootOutputDir)}` : "__filename"});`;
+	}
+	/**
+	* @private
+	* @param {unknown[]} items item to log
+	*/
+	_getLogger(...items) {
+		if (!this.options.debug) return "";
+		return `console.log(${items.join(",")});`;
+	}
+	/**
+	* @returns {string} runtime code
+	*/
+	generate() {
+		const { remotes = {}, name } = this.options;
+		const { webpack } = this.chunkLoadingContext;
+		const { chunkGraph, chunk, compilation } = this;
+		const { Template } = webpack;
+		if (!chunkGraph || !chunk || !compilation) {
+			this.logger.warn("Missing required properties. Returning empty string.");
+			return "";
+		}
+		const infrastructureLogger = compilation.getLogger?.("DynamicFilesystemChunkLoadingRuntimeModule");
+		if (infrastructureLogger) this.logger.setDelegate(infrastructureLogger);
+		const { runtimeTemplate } = compilation;
+		const jsModulePlugin = webpack?.javascript?.JavascriptModulesPlugin || __require("webpack/lib/javascript/JavascriptModulesPlugin");
+		const { chunkHasJs } = jsModulePlugin;
+		const fn = RuntimeGlobals.ensureChunkHandlers;
+		const hasJsMatcher = compileBooleanMatcher(chunkGraph.getChunkConditionMap(chunk, chunkHasJs));
+		const initialChunkIds = getInitialChunkIds(chunk, chunkGraph, chunkHasJs);
+		const rootOutputDir = getUndoPath(compilation.getPath(jsModulePlugin.getChunkFilenameTemplate(chunk, compilation.outputOptions), {
+			chunk,
+			contentHashType: "javascript"
+		}), compilation.outputOptions.path || "", false);
+		const stateExpression = this.runtimeRequirements.has(RuntimeGlobals.hmrDownloadUpdateHandlers) ? `${RuntimeGlobals.hmrRuntimeStatePrefix}_readFileVm` : void 0;
+		const dynamicFilesystemChunkLoadingPluginCode = Template.asString([
+			fileSystemRunInContextStrategy.toString(),
+			httpEvalStrategy.toString(),
+			httpVmStrategy.toString(),
+			"const loadChunkStrategy = async (strategyType,chunkId,rootOutputDir, remotes, callback) => {",
+			Template.indent([
+				"switch (strategyType) {",
+				Template.indent([
+					"case \"filesystem\": return await fileSystemRunInContextStrategy(chunkId,rootOutputDir, remotes, callback);",
+					"case \"http-eval\": return await httpEvalStrategy(chunkId,rootOutputDir, remotes, callback);",
+					"case \"http-vm\": return await httpVmStrategy(chunkId,rootOutputDir, remotes, callback);",
+					this.hooks.strategyCase.call("default: throw new Error(\"Invalid strategy type\");")
+				]),
+				"}"
+			]),
+			"};"
+		]);
+		return Template.asString([
+			dynamicFilesystemChunkLoadingPluginCode,
+			this.runtimeRequirements.has(RuntimeGlobals.baseURI) ? this._generateBaseUri(chunk, rootOutputDir) : "// no baseURI",
+			"",
+			"// object to store loaded chunks",
+			"// \"0\" means \"already loaded\", Promise means loading",
+			`var installedChunks = ${stateExpression ? `${stateExpression} = ${stateExpression} || ` : ""}{`,
+			Template.indent(Array.from(initialChunkIds, (id) => `${JSON.stringify(id)}: 0`).join(",\n")),
+			"};",
+			"",
+			handleOnChunkLoad(this.runtimeRequirements.has(RuntimeGlobals.onChunksLoaded), runtimeTemplate),
+			"",
+			generateInstallChunk(runtimeTemplate, this.runtimeRequirements.has(RuntimeGlobals.onChunksLoaded)),
+			"",
+			this.runtimeRequirements.has(RuntimeGlobals.ensureChunkHandlers) ? generateLoadScript(runtimeTemplate) : "// no remote script loader needed",
+			this.runtimeRequirements.has(RuntimeGlobals.ensureChunkHandlers) ? generateLoadingCode(this.runtimeRequirements.has(RuntimeGlobals.ensureChunkHandlers), fn, hasJsMatcher, rootOutputDir, remotes, name) : "// no chunk loading",
+			"",
+			generateExternalInstallChunkCode(this.runtimeRequirements.has(RuntimeGlobals.externalInstallChunk), this.options.debug),
+			"",
+			generateHmrCode(this.runtimeRequirements.has(RuntimeGlobals.hmrDownloadUpdateHandlers), rootOutputDir),
+			"",
+			generateHmrManifestCode(this.runtimeRequirements.has(RuntimeGlobals.hmrDownloadManifest), rootOutputDir)
+		]);
+	}
+};
+
+//#endregion
+export { DynamicFilesystemChunkLoadingRuntimeModule as default };
+//# sourceMappingURL=DynamicFilesystemChunkLoadingRuntimeModule.mjs.map

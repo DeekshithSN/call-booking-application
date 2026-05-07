@@ -1,0 +1,1 @@
+{"version":3,"file":"update-owners-and-conformance.d.ts","sourceRoot":"","sources":["../../../../../../../packages/workspace/src/generators/move/lib/update-owners-and-conformance.ts"],"names":[],"mappings":"AAAA,OAAO,EAGL,IAAI,EAEL,MAAM,YAAY,CAAC;AACpB,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAC;AAE7C,wBAAgB,0BAA0B,CACxC,IAAI,EAAE,IAAI,EACV,MAAM,EAAE,gBAAgB,QA4BzB"}

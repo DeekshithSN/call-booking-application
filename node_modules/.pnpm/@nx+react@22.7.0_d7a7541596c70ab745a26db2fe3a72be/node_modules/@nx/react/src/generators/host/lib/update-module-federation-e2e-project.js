@@ -1,0 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateModuleFederationE2eProject = updateModuleFederationE2eProject;
+const devkit_1 = require("@nx/devkit");
+function updateModuleFederationE2eProject(host, options) {
+    try {
+        let projectConfig = (0, devkit_1.readProjectConfiguration)(host, options.e2eProjectName);
+        if (projectConfig.targets.e2e.executor !== '@nx/playwright:playwright') {
+            projectConfig.targets.e2e.options = {
+                ...projectConfig.targets.e2e.options,
+                baseUrl: `http://localhost:${options.devServerPort}`,
+            };
+            (0, devkit_1.updateProjectConfiguration)(host, options.e2eProjectName, projectConfig);
+        }
+    }
+    catch {
+        // nothing
+    }
+}

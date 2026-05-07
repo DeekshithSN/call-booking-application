@@ -1,0 +1,1 @@
+{"version":3,"file":"nx-tsconfig-paths-find-file.d.ts","sourceRoot":"","sources":["../../../../../packages/vite/src/utils/nx-tsconfig-paths-find-file.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,SAAS,CAAC;AAGrC,wBAAgB,QAAQ,CACtB,IAAI,EAAE,MAAM,EACZ,UAAU,EAAE,MAAM,EAAE,EACpB,cAAc,GAAE,OAAO,UAAuB,GAC7C,MAAM,CAmBR"}

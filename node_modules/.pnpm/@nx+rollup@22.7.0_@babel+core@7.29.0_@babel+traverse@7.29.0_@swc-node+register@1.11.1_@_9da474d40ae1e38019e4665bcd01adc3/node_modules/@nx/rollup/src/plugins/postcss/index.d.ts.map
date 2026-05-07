@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../../packages/rollup/src/plugins/postcss/index.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;GAWG;AAEH,OAAO,EAAE,OAAO,EAAE,MAAM,kBAAkB,CAAC;AAC3C,OAAO,EAAE,OAAO,IAAI,OAAO,EAAE,MAAM,kBAAkB,CAAC;AAEtD,YAAY,EACV,oBAAoB,EACpB,qBAAqB,EACrB,aAAa,EACb,UAAU,EACV,WAAW,EACX,WAAW,EACX,aAAa,GACd,MAAM,WAAW,CAAC"}

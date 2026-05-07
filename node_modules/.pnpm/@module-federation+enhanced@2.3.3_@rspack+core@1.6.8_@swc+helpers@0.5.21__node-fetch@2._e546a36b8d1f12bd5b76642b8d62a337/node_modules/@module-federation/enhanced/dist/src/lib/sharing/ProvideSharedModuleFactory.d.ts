@@ -1,0 +1,16 @@
+import * as webpack_lib_ModuleFactory0 from "webpack/lib/ModuleFactory";
+import { ModuleFactoryCreateData, ModuleFactoryResult } from "webpack/lib/ModuleFactory";
+
+//#region src/lib/sharing/ProvideSharedModuleFactory.d.ts
+declare const ModuleFactory: typeof webpack_lib_ModuleFactory0;
+declare class ProvideSharedModuleFactory extends ModuleFactory {
+  /**
+   * @param {ModuleFactoryCreateData} data data object
+   * @param {function((Error | null)=, ModuleFactoryResult=): void} callback callback
+   * @returns {void}
+   */
+  create(data: ModuleFactoryCreateData, callback: (error: Error | null, result?: ModuleFactoryResult) => void): void;
+}
+//#endregion
+export { ProvideSharedModuleFactory as default };
+//# sourceMappingURL=ProvideSharedModuleFactory.d.ts.map
