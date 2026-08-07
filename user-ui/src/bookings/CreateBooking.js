@@ -10,8 +10,10 @@ import { BookIcon } from '../svgs';
 import { CONTACT_EMAIL, PAYMENT_NUMBER } from '../config';
 import { isPossibleNumber, isValidPhoneNumber } from 'libphonenumber-js';
 import { addBooking } from '../services/booking';
+import { useMetrics } from '@cabify/prom-react';
 
 function CreateBooking() {
+  const { observe } = useMetrics();
 
   const [bookingInfo, setBookingInfo] = useState({
     name: '',
@@ -32,6 +34,7 @@ function CreateBooking() {
 
   const submitHandler = (e) => {
     e.preventDefault()
+    observe('bookings_event', { custom_tag: 'booking_event' }, 1);
     if (!isPossibleNumber(bookingInfo.phonenumber) || !isValidPhoneNumber(bookingInfo.phonenumber)) {
       setPhoneMessage('Enter valid Number.')
       return;
@@ -39,7 +42,10 @@ function CreateBooking() {
     setShowModal(true)
   };
 
+
+
   const createBooking = async () => {
+    console.log('Booking')
     setShowModal(false)
     setLoading(true);
     let formData = new FormData()
@@ -51,6 +57,7 @@ function CreateBooking() {
     formData.append('location', location)
     formData.append('ip', ip)
     formData.append('image', pic[0])
+  
     addBooking(formData)
       .then(() => {
         setLoading(false);
@@ -74,7 +81,10 @@ function CreateBooking() {
           setError('')
         }, 10000);
       })
+
+  
   }
+
 
   const getLocation = () => {
     axios.get('http://ip-api.com/json')

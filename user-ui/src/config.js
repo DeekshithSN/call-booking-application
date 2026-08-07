@@ -1,3 +1,3 @@
-export const CONTACT_EMAIL = 'admin@deekshithsn.live'
-export const PAYMENT_NUMBER = '99xxx45xxx'
-export const API_URL = 'http://localhost:5000'
+export const CONTACT_EMAIL = 'deekshithsn@gmail.com'
+export const PAYMENT_NUMBER = '99xxx33xxx'
+

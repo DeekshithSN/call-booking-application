@@ -18,7 +18,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.10",
     "multer-gridfs-storage": "^5.0.2",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "prom-client": "^14.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

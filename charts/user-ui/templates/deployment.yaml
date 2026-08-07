@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "user-ui.fullname" . }}
+  labels:
+    app: {{ include "user-ui.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "user-ui.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "user-ui.name" . }}
+    spec:
+      containers:
+        - name: user-ui
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}

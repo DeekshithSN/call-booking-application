@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api
+  labels:
+    name:  admin-api
+  namespace: admin
+spec:
+  selector:
+    matchLabels:
+      app: admin-api
+      module: admin
+  template:
+    metadata:
+      labels:
+        app: admin-api
+        module: admin
+    spec:
+      nodeSelector:
+        mdoule: admin
+      containers:
+      - image: 585768154650.dkr.ecr.ap-south-1.amazonaws.com/admin-api:1.0
+        name: admin-api
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+        ports:
+        - containerPort: 1025
+          name: http
+        env:
+          - name: MONGO_URL
+            valueFrom:
+              secretKeyRef:
+                name: admin-api-secrets
+                key: connectionstring
+          - name: PORT 
+            value: "1025"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 1025
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 1025
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        
+      

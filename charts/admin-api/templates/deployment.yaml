@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "admin-api.fullname" . }}
+  labels:
+    app: {{ include "admin-api.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "admin-api.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "admin-api.name" . }}
+    spec:
+      containers:
+        - name: admin-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongo:27017/call-booking-db"
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}

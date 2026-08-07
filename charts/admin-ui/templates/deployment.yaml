@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "admin-ui.fullname" . }}
+  labels:
+    app: {{ include "admin-ui.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "admin-ui.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "admin-ui.name" . }}
+    spec:
+      containers:
+        - name: admin-ui
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}

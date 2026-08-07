@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: chaitramk23/admin-api
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: regcred
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# Environment variables for MongoDB
+env:
+  - name: MONGO_HOST
+    value: "mongo"         # Kubernetes service name for MongoDB
+  - name: MONGO_PORT
+    value: "27017"
+  - name: MONGO_DB
+    value: "admin-api"     # your database name
+  - name: MONGO_USER
+    value: ""              # fill if MongoDB auth enabled
+  - name: MONGO_PASSWORD
+    value: ""              # fill if MongoDB auth enabled
+  - name: PORT
+    value: "1004"

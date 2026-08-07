@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: chaitramk23/user-ui
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: regcred
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi

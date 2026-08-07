@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "user-api.fullname" . }}
+  labels:
+    app: {{ include "user-api.name" . }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ include "user-api.name" . }}

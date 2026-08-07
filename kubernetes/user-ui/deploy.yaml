@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-ui
+  namespace: user
+  labels:
+    app: user-ui
+spec:
+  selector:
+    matchLabels:
+      app: user-ui
+      module: user
+  template:
+    metadata:
+      labels:
+        app: user-ui
+        module: user
+    spec:
+      volumes:
+        - name: user-ui-vl
+          configMap:
+            name: user-ui-cm
+      containers:
+      - image: 585768154650.dkr.ecr.ap-south-1.amazonaws.com/user-ui:1.0
+        name: user-ui
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+        ports:
+        - containerPort: 3000
+          name: http
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        volumeMounts:
+          - name: user-ui-vl
+            mountPath: /app/.env
+            subPath: .env

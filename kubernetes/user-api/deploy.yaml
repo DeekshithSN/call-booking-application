@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-api
+  labels:
+    name:  user-api
+  namespace: user
+spec:
+  selector:
+    matchLabels:
+      app: user-api
+      module: user
+  template:
+    metadata:
+      labels:
+        app: user-api
+        module: user
+    spec:
+      nodeSelector:
+        module: user
+      containers:
+      - image: 585768154650.dkr.ecr.ap-south-1.amazonaws.com/user-api:1.0
+        name: user-api
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+        ports:
+        - containerPort: 1025
+          name: http
+        env:
+          - name: MONGO_URL
+            valueFrom:
+              secretKeyRef:
+                name: user-api-secrets
+                key: connectionstring
+          - name: PORT 
+            value: "1025"
+          - name: ADMIN_EMAIL
+            value: admin@deekshithsn.co.in
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 1025
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 1025
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        
+      

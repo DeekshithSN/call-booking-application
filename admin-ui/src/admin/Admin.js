@@ -5,9 +5,10 @@ import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import Dashboard from './Dashboard';
 import { login } from '../services/auth';
-
+import { useMetrics } from '@cabify/prom-react';
 
 function Admin() {
+  const { observe } = useMetrics();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +20,7 @@ function Admin() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    observe('login_event', { custom_tag: 'Login Event' }, 1);
     setLoading(true);
     login({ username, password })
       .then((data) => {

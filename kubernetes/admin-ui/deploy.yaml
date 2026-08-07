@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-ui
+  namespace: admin
+  labels:
+    app: admin-ui
+spec:
+  selector:
+    matchLabels:
+      app: admin-ui
+      module: admin
+  template:
+    metadata:
+      labels:
+        app: admin-ui
+        module: admin
+    spec:
+      volumes:
+        - name: admin-ui-vl
+          configMap:
+            name: admin-ui-cm
+      containers:
+      - image: 585768154650.dkr.ecr.ap-south-1.amazonaws.com/admin-ui:1.0
+        name: admin-ui
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+        ports:
+        - containerPort: 3000
+          name: http
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        volumeMounts:
+          - name: admin-ui-vl
+            mountPath: /app/.env
+            subPath: .env

@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: chaitramk23/user-api
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: regcred
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+env:
+  - name: DB_URL
+    value: "mongodb://mongo:27017/user-api"
+  - name: DB_USER
+    value: ""
+  - name: DB_PASS
+    value: ""
+  - name: PORT
+    value: "1005"
